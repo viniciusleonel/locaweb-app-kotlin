@@ -13,6 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import br.dev.locaweb_app.ui.components.CustomButton
+import br.dev.locaweb_app.ui.theme.LakeBlue
+import br.dev.locaweb_app.ui.theme.OceanBlue
+
+val colors = listOf(
+    OceanBlue,
+    LakeBlue,
+    OceanBlue
+)
 
 @Composable
 fun LoginScreen(
@@ -26,14 +35,13 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        Button(
+        CustomButton(
             onClick = {
                 navController?.navigate("profile")
             },
-            colors = ButtonDefaults.buttonColors(Color.Cyan),
-        ) {
-            Text(text = "Login")
-        }
+            colorsList = colors,
+            text = "Login"
+        )
     }
 }
 
