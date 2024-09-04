@@ -1,9 +1,9 @@
 package br.dev.locaweb_app.ui.components
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -24,6 +24,7 @@ fun CustomButton(
     onClick: () -> Unit,
     text: String,
     colorsList: List<Color>,
+    cornerShape: CornerBasedShape,
     modifier: Modifier = Modifier) {
     Button(
         onClick,
@@ -43,7 +44,7 @@ fun CustomButton(
                 Brush.horizontalGradient(
                     colors = colorsList
                 ),
-                shape = ShapeButton.large
+                shape = cornerShape
             ),
 
     ) {
@@ -65,5 +66,5 @@ val colors = listOf(
 @Preview(showSystemUi = true)
 @Composable
 private fun ButtonPrev() {
-    CustomButton(onClick = {}, text = "Custom", colorsList = colors)
+    CustomButton(onClick = {}, text = "Custom", colorsList = colors, cornerShape = ShapeButton.medium)
 }
