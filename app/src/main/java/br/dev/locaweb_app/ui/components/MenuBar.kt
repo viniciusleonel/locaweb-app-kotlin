@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.dev.locaweb_app.ui.theme.Blue
-import br.dev.locaweb_app.ui.theme.LakeBlue
-import br.dev.locaweb_app.ui.theme.OceanBlue
 
 @Composable
 fun MenuBar(

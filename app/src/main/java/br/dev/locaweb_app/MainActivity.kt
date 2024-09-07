@@ -32,6 +32,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.dev.locaweb_app.navigation.NavGraph
 import br.dev.locaweb_app.ui.components.MenuBar
+import br.dev.locaweb_app.ui.components.NavBar
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
             LocawebappTheme {
                 val navController = rememberNavController()
                 Scaffold(
-
+                    topBar = { NavBar(navController = navController) },
                     bottomBar = { MenuBar(navController = navController) }
                 ) { innerPadding ->
                     // Box para garantir que a MenuBar ocupe toda a altura disponível
