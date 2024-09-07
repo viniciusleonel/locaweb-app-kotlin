@@ -1,6 +1,7 @@
 package br.dev.locaweb_app.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,8 +11,7 @@ import br.dev.locaweb_app.ui.screens.ProfileScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
 
 @Composable
-fun NavGraph(startDestination: String = "login") {
-    val navController = rememberNavController()
+fun NavGraph(navController: NavHostController, startDestination: String = "login") {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "login") {
             LoginScreen(navController = navController)

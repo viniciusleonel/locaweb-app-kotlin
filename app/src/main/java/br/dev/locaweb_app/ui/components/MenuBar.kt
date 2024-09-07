@@ -9,46 +9,63 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import br.dev.locaweb_app.ui.theme.Blue
+import br.dev.locaweb_app.ui.theme.LakeBlue
+import br.dev.locaweb_app.ui.theme.OceanBlue
 
 @Composable
-fun MenuBar(modifier: Modifier = Modifier) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly, // Espaço entre os itens
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth() // Garante que a Row ocupe toda a largura
-            .height(80.dp) // Altura fixa do traço
+fun MenuBar(
+    navController: NavController,
+    modifier: Modifier = Modifier
     ) {
-        MenuItem(
-            icon = Icons.Filled.Settings,
-            text = "Settings",
-            modifier = Modifier.weight(1f), // Faz com que o MenuItem ocupe toda a largura disponível
-            onClick = {
-                // Ação a ser executada quando o botão for clicado
-                println("Settings button clicked")
-            }
-        )
-        MenuItem(
-            icon = Icons.Filled.Email,
-            text = "Emails",
-            modifier = Modifier.weight(1f),
-            onClick = {
-                // Ação a ser executada quando o botão for clicado
-                println("Emails button clicked")
-            }
-        )
-        MenuItem(
-            icon = Icons.Filled.Person,
-            text = "Profile",
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    if (currentRoute != "login") {
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .weight(1f),
-            onClick = {
-                // Ação a ser executada quando o botão for clicado
-                println("Profile button clicked")
-            }
-        )
+                .fillMaxWidth()
+                .height(80.dp)
+        ) {
+            MenuItem(
+                icon = Icons.Filled.Settings,
+                text = "Settings",
+                modifier = Modifier.weight(1f), // Faz com que o MenuItem ocupe toda a largura disponível
+                color = if (currentRoute == "settings") Blue else Color.Black,
+                onClick = {
+                    navController.navigate("settings")
+                }
+            )
+            MenuItem(
+                icon = Icons.Filled.Email,
+                text = "Emails",
+                modifier = Modifier.weight(1f),
+                color = if (currentRoute == "emails") Blue else Color.Black,
+                onClick = {
+                    navController.navigate("emails")
+                }
+            )
+            MenuItem(
+                icon = Icons.Filled.Person,
+                text = "Profile",
+                modifier = Modifier
+                    .weight(1f),
+                color = if (currentRoute == "profile") Blue else Color.Black,
+                onClick = {
+                    navController.navigate("profile")
+                }
+            )
+        }
     }
+
 }

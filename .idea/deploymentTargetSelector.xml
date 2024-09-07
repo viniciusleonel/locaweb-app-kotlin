@@ -18,8 +18,19 @@
       </SelectionState>
       <SelectionState runConfigName="ButtonPrev">
         <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2024-09-07T02:06:19.945691600Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\vinicius\.android\avd\Pixel_7_Pro_API_30.avd" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="LoginScreenPrev (1)">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="MenuItemPrev">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

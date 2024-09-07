@@ -43,9 +43,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LocawebappTheme {
+                val navController = rememberNavController()
                 Scaffold(
 
-                    bottomBar = { MenuBar() }
+                    bottomBar = { MenuBar(navController = navController) }
                 ) { innerPadding ->
                     // Box para garantir que a MenuBar ocupe toda a altura disponível
                     Column(
@@ -55,8 +56,7 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val navController = rememberNavController()
-                        NavGraph()
+                        NavGraph(navController = navController)
                     }
                 }
             }
