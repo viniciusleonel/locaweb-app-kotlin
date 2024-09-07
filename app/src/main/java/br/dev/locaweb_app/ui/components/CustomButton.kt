@@ -1,6 +1,7 @@
 package br.dev.locaweb_app.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -23,37 +24,41 @@ import br.dev.locaweb_app.ui.theme.ShapeButton
 fun CustomButton(
     onClick: () -> Unit,
     text: String,
-    colorsList: List<Color>,
+    color: Color? = null,
+    colorsList: List<Color>? = null,
     cornerShape: CornerBasedShape,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
+    val brush = when {
+        colorsList != null -> Brush.horizontalGradient(colorsList)
+        color != null -> Brush.linearGradient(listOf(color, color))
+        else -> Brush.linearGradient(listOf(Color.Black, Color.Black)) // Cor padrão
+    }
+
     Button(
         onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent
-
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(
             defaultElevation = 0.dp,
             pressedElevation = 0.dp,
             hoveredElevation = 0.dp
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(20.dp)
             .background(
-                Brush.horizontalGradient(
-                    colors = colorsList
-                ),
+                brush,
                 shape = cornerShape
             ),
-
     ) {
         Text(
             text = text,
             fontSize = 18.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
-            )
+        )
     }
 }
 
@@ -63,8 +68,12 @@ val colors = listOf(
     OceanBlue
 )
 
-@Preview(showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun ButtonPrev() {
-    CustomButton(onClick = {}, text = "Custom", colorsList = colors, cornerShape = ShapeButton.medium)
+    Column {
+        CustomButton(onClick = {}, text = "Custom", colorsList = listOf(OceanBlue, LakeBlue), cornerShape = ShapeButton.medium)
+        CustomButton(onClick = {}, text = "Single Color", color = OceanBlue, cornerShape = ShapeButton.medium)
+        CustomButton(onClick = {}, text = "Default Color", cornerShape = ShapeButton.medium)
+    }
 }

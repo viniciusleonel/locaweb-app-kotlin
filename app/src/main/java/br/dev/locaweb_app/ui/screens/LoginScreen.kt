@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.theme.LakeBlue
 import br.dev.locaweb_app.ui.theme.OceanBlue
+import br.dev.locaweb_app.ui.theme.ShapeButton
 
 val colors = listOf(
     OceanBlue,
@@ -39,8 +40,9 @@ fun LoginScreen(
             onClick = {
                 navController?.navigate("profile")
             },
-            colorsList = colors,
-            text = "Login"
+            colorsList = listOf(Color.Red, Color.Yellow),
+            text = "Login",
+            cornerShape = ShapeButton.medium
         )
     }
 }
