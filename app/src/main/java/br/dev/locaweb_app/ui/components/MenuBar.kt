@@ -20,8 +20,8 @@ import br.dev.locaweb_app.ui.theme.Blue
 
 @Composable
 fun MenuBar(
-    navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
     ) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -65,5 +65,4 @@ fun MenuBar(
             )
         }
     }
-
 }

@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -21,21 +23,27 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.dev.locaweb_app.ui.theme.Blue
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun NavBar(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-
+    val systemUiController = rememberSystemUiController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     if (currentRoute != "login") {
+
+        systemUiController.setStatusBarColor(
+            color = Blue
+        )
+
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(70.dp)
                 .background(color = Blue),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center

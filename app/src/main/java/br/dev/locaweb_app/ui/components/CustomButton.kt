@@ -22,12 +22,12 @@ import br.dev.locaweb_app.ui.theme.ShapeButton
 
 @Composable
 fun CustomButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
     color: Color? = null,
     colorsList: List<Color>? = null,
-    cornerShape: CornerBasedShape,
-    modifier: Modifier = Modifier
+    cornerShape: CornerBasedShape
 ) {
     val brush = when {
         colorsList != null -> Brush.horizontalGradient(colorsList)
@@ -47,7 +47,7 @@ fun CustomButton(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(20.dp, 10.dp)
             .background(
                 brush,
                 shape = cornerShape
@@ -73,6 +73,7 @@ val colors = listOf(
 private fun ButtonPrev() {
     Column {
         CustomButton(onClick = {}, text = "Custom", colorsList = listOf(OceanBlue, LakeBlue), cornerShape = ShapeButton.medium)
+        CustomButton(onClick = {}, text = "Custom", colorsList = listOf(OceanBlue, LakeBlue, Color.Yellow, Color.Red), cornerShape = ShapeButton.medium)
         CustomButton(onClick = {}, text = "Single Color", color = OceanBlue, cornerShape = ShapeButton.medium)
         CustomButton(onClick = {}, text = "Default Color", cornerShape = ShapeButton.medium)
     }

@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MenuItem(
-    icon: ImageVector, 
-    text: String, 
-    modifier: Modifier = Modifier, 
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    text: String,
     onClick: () -> Unit,
     color: Color = Color.Black
     ) {
