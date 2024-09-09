@@ -72,9 +72,24 @@ val colors = listOf(
 @Composable
 private fun ButtonPrev() {
     Column {
-        CustomButton(onClick = {}, text = "Custom", colorsList = listOf(OceanBlue, LakeBlue), cornerShape = ShapeButton.medium)
-        CustomButton(onClick = {}, text = "Custom", colorsList = listOf(OceanBlue, LakeBlue, Color.Yellow, Color.Red), cornerShape = ShapeButton.medium)
-        CustomButton(onClick = {}, text = "Single Color", color = OceanBlue, cornerShape = ShapeButton.medium)
+        CustomButton(
+            onClick = {},
+            text = "Custom",
+            colorsList = listOf(OceanBlue, LakeBlue),
+            cornerShape = ShapeButton.medium
+        )
+        CustomButton(
+            onClick = {},
+            text = "Custom",
+            colorsList = listOf(OceanBlue, LakeBlue, Color.Yellow, Color.Red),
+            cornerShape = ShapeButton.medium
+        )
+        CustomButton(
+            onClick = {},
+            text = "Single Color",
+            color = OceanBlue,
+            cornerShape = ShapeButton.medium
+        )
         CustomButton(onClick = {}, text = "Default Color", cornerShape = ShapeButton.medium)
     }
 }

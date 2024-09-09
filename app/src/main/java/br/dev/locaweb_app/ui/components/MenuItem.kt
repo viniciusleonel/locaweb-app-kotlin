@@ -22,12 +22,11 @@ fun MenuItem(
     text: String,
     onClick: () -> Unit,
     color: Color = Color.Black
-    ) {
+) {
     Column(
         modifier = modifier
             .clickable(onClick = onClick)
-            .padding(8.dp)
-            , 
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(

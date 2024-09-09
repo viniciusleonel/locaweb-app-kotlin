@@ -22,7 +22,7 @@ import br.dev.locaweb_app.ui.theme.Blue
 fun MenuBar(
     modifier: Modifier = Modifier,
     navController: NavController
-    ) {
+) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route

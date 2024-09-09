@@ -40,14 +40,14 @@ fun NavBar(
             color = Blue
         )
 
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(70.dp)
                 .background(color = Blue),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
-        ){
+        ) {
             if (currentRoute != null) {
                 Text(
                     text = currentRoute.uppercase(),
