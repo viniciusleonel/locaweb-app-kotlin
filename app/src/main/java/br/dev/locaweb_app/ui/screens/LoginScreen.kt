@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
+import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.user.login
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
@@ -31,7 +32,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navController: NavController? = null
+    navController: NavController? = null,
+    userViewModel: UserViewModel
 ) {
 
     val context = LocalContext.current
@@ -92,6 +94,7 @@ fun LoginScreen(
                         context,
                         onSuccess = { response ->
                             loginResponse = response
+                            userViewModel.setUserLoginResponse(response)
                         },
                         onFailure = { message ->
                             errorMessage = message
@@ -109,9 +112,3 @@ fun LoginScreen(
 }
 
 val buttonColors = listOf(OceanBlue, Color.Blue, OceanBlue)
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun LoginScreenPrev() {
-    LoginScreen()
-}

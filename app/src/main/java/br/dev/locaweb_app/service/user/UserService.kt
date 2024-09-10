@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
-import br.dev.locaweb_app.model.user.ErrorResponse
+import br.dev.locaweb_app.model.ErrorResponse
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
 import br.dev.locaweb_app.service.RetrofitFactory
@@ -83,12 +83,5 @@ fun UserLogin.login(
             onFailure(errorMessage)
             Log.i("LOGIN", "onFailure $errorMessage")
         }
-
-
     })
-
-    Log.i("LOGIN", "onResponse ${this.username}")
-    Log.i("LOGIN", "onResponse ${this.password}")
-
-    return
 }

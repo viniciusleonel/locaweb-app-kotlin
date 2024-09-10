@@ -12,5 +12,3 @@ data class UserLoginResponse(
     val email: String = "",
     val isLoggedIn: Boolean = false
 )
-
-
