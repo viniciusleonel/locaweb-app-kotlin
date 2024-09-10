@@ -1,9 +1,12 @@
 package br.dev.locaweb_app.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -21,6 +24,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.dev.locaweb_app.ui.theme.ShapeButton
 
@@ -91,32 +95,40 @@ fun CustomInput(
     )
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//private fun CustomInputPrev() {
-//    Column {
-//        CustomInput(
-//            textStyle = TextStyle(Color.Blue),
-//            label = "Insert your username:",
-//            icon = Icons.Filled.Person,
-//            capitalization = KeyboardCapitalization.Words,
-//        )
-//        CustomInput(
-//            textStyle = TextStyle(Color.Blue),
-//            label = "Email",
-//            keyboard = KeyboardType.Email,
-//            capitalization = KeyboardCapitalization.None,
-//        )
-//        CustomInput(
-//            textStyle = TextStyle(Color.Blue),
-//            label = "Numbers",
-//            keyboard = KeyboardType.Number,
-//        )
-//        CustomInput(
-//            textStyle = TextStyle(Color.Blue),
-//            label = "Insert your password:",
-//            keyboard = KeyboardType.Password,
-//            capitalization = KeyboardCapitalization.None,
-//        )
-//    }
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CustomInputPrev() {
+    Column {
+        CustomInput(
+            textStyle = TextStyle(Color.Blue),
+            textInput = "",
+            onValueChange = {},
+            label = "Insert your username:",
+            icon = Icons.Filled.Person,
+            capitalization = KeyboardCapitalization.Words,
+        )
+        CustomInput(
+            textInput = "",
+            onValueChange = {},
+            textStyle = TextStyle(Color.Blue),
+            label = "Email",
+            keyboard = KeyboardType.Email,
+            capitalization = KeyboardCapitalization.None,
+        )
+        CustomInput(
+            textInput = "",
+            onValueChange = {},
+            textStyle = TextStyle(Color.Blue),
+            label = "Numbers",
+            keyboard = KeyboardType.Number,
+        )
+        CustomInput(
+            textInput = "",
+            onValueChange = {},
+            textStyle = TextStyle(Color.Blue),
+            label = "Insert your password:",
+            keyboard = KeyboardType.Password,
+            capitalization = KeyboardCapitalization.None,
+        )
+    }
+}
