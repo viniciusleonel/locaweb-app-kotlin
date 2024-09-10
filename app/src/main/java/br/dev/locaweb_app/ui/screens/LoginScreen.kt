@@ -20,15 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
-import br.dev.locaweb_app.model.user.login
-import br.dev.locaweb_app.service.RetrofitFactory
+import br.dev.locaweb_app.service.user.login
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import retrofit2.Callback
 
 @Composable
 fun LoginScreen(
@@ -39,26 +37,14 @@ fun LoginScreen(
     val context = LocalContext.current
 
     val systemUiController = rememberSystemUiController()
-    systemUiController.setStatusBarColor(
-        color = OceanBlue
-    )
+    systemUiController.setStatusBarColor(color = OceanBlue)
 
-    var loginResponse by remember {
-        mutableStateOf(UserLoginResponse())
-    }
-
-    var username by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var isErrorUsername by remember {
-        mutableStateOf(false)
-    }
-    var isErrorPassword by remember {
-        mutableStateOf(false)
-    }
+    var loginResponse by remember {mutableStateOf(UserLoginResponse())}
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    var username by remember {mutableStateOf("")}
+    var password by remember {mutableStateOf("")}
+    var isErrorUsername by remember {mutableStateOf(false)}
+    var isErrorPassword by remember {mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -100,13 +86,25 @@ fun LoginScreen(
                 isErrorPassword = password.isEmpty()
 
                 val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
-                navController?.let { userLogin.login(userLogin, it, context) }
+                navController?.let {
+                    userLogin.login(
+                        it,
+                        context,
+                        onSuccess = { response ->
+                            loginResponse = response
+                        },
+                        onFailure = { message ->
+                            errorMessage = message
+                        }
+                    )
+                }
 
             },
             colorsList = buttonColors,
             text = "Login",
             cornerShape = ShapeButton.medium
         )
+        errorMessage?.let {ErrorMessage(text = it)}
     }
 }
 
