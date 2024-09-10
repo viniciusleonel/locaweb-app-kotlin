@@ -99,9 +99,8 @@ fun LoginScreen(
                 isErrorUsername = username.isEmpty()
                 isErrorPassword = password.isEmpty()
 
-
-                val userLogin = UserLogin(username, password)
-                navController?.let { userLogin.login(it, context) }
+                val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
+                navController?.let { userLogin.login(userLogin, it, context) }
 
             },
             colorsList = buttonColors,

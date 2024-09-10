@@ -12,7 +12,7 @@ import retrofit2.Response
 
 data class UserLogin(
     val username: String,
-    val email: String
+    val password: String
 )
 
 data class UserLoginResponse(
@@ -31,18 +31,22 @@ fun loginFailureToast(context: Context, text: String) {
     Toast.makeText(context, text, Toast.LENGTH_LONG).show()
 }
 
-fun UserLogin.login(navController: NavController, context: Context) : UserLoginResponse? {
-    val call = RetrofitFactory().getUserService().login(this)
-    var callResponse: Response<UserLoginResponse>? = null
+fun UserLogin.login(userLogin: UserLogin, navController: NavController, context: Context)  {
+    val call = RetrofitFactory().getUserService().login(userLogin)
     call.enqueue(object : Callback<UserLoginResponse>{
         override fun onResponse(
             call: Call<UserLoginResponse>,
             response: Response<UserLoginResponse>
         ) {
-            loginSuccessToast(context)
-            navController.navigate("profile")
-            callResponse = response
-            Log.i("LOGIN", "onResponse ${callResponse?.body()}")
+            if (response.isSuccessful) {
+                val userLoginResponse = response.body()
+                Log.i("LOGIN", "onResponse $userLoginResponse")
+                loginSuccessToast(context)
+                navController.navigate("profile")
+            } else {
+                val errorBody = response.errorBody()?.string()
+                Log.e("LOGIN", "Error Response: $errorBody")
+            }
         }
 
         override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
@@ -50,7 +54,11 @@ fun UserLogin.login(navController: NavController, context: Context) : UserLoginR
             Log.i("LOGIN", "onFailure ${t.message}")
         }
 
+
     })
 
-    return callResponse?.body()
+    Log.i("LOGIN", "onResponse ${userLogin.username}")
+    Log.i("LOGIN", "onResponse ${userLogin.password}")
+
+    return
 }
