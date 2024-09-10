@@ -27,7 +27,7 @@ fun MenuBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    if (currentRoute != "login") {
+    if (currentRoute != "login" && currentRoute != "register") {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,

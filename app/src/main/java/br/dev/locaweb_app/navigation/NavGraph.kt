@@ -9,6 +9,7 @@ import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
+import br.dev.locaweb_app.ui.screens.RegisterScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
 
 @Composable
@@ -21,6 +22,12 @@ fun NavGraph(
             LoginScreen(
                 navController = navController,
                 userViewModel = userViewModel
+                )
+        }
+        composable(route = "register") {
+            RegisterScreen(
+                navController = navController,
+//                userViewModel = userViewModel
                 )
         }
         composable(route = "profile") {

@@ -34,7 +34,7 @@ fun NavBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    if (currentRoute != "login") {
+    if (currentRoute != "login" && currentRoute != "register") {
 
         systemUiController.setStatusBarColor(
             color = Blue

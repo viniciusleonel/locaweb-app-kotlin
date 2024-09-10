@@ -38,12 +38,16 @@ import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
 import br.dev.locaweb_app.ui.theme.LocawebappTheme
+import br.dev.locaweb_app.ui.theme.OceanBlue
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             LocawebappTheme {
+                val systemUiController = rememberSystemUiController()
+                systemUiController.setStatusBarColor(color = OceanBlue)
                 val navController = rememberNavController()
                 Scaffold(
                     topBar = { NavBar(navController = navController) },

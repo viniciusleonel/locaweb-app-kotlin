@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
@@ -13,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,20 +32,24 @@ import br.dev.locaweb_app.ui.theme.ShapeButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
-    userViewModel: UserViewModel
+//    userViewModel: UserViewModel
 ) {
 
     val context = LocalContext.current
 
-    var loginResponse by remember {mutableStateOf(UserLoginResponse())}
-    var errorMessage by remember { mutableStateOf<String?>(null) }
-    var username by remember {mutableStateOf("")}
-    var password by remember {mutableStateOf("")}
-    var isErrorUsername by remember {mutableStateOf(false)}
-    var isErrorPassword by remember {mutableStateOf(false) }
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var checkPassword by remember { mutableStateOf("") }
+    var isErrorName by remember { mutableStateOf(false) }
+    var isErrorEmail by remember { mutableStateOf(false) }
+    var isErrorUsername by remember { mutableStateOf(false) }
+    var isErrorPassword by remember { mutableStateOf(false) }
+    var isErrorCheckPassword by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -52,13 +58,39 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         CustomInput(
+            textInput = name,
+            onValueChange = { letter ->
+                name = letter
+            },
+            label = "Insert your name:",
+            placeholder = "Insira seu nome:",
+            icon = Icons.Filled.Person,
+            color = OceanBlue,
+            cornerShape = ShapeButton.medium,
+            isError = isErrorName
+        )
+        if (isErrorName) ErrorMessage(text = "Nome é obrigatório!")
+        CustomInput(
+            textInput = email,
+            onValueChange = { letter ->
+                email = letter
+            },
+            label = "Insert your email:",
+            placeholder = "Insira seu email:",
+            icon = Icons.Filled.Email,
+            color = OceanBlue,
+            cornerShape = ShapeButton.medium,
+            isError = isErrorEmail
+        )
+        if (isErrorEmail) ErrorMessage(text = "Email é obrigatório!")
+        CustomInput(
             textInput = username,
             onValueChange = { letter ->
                 username = letter
             },
             label = "Insert your username:",
             placeholder = "Insira seu username:",
-            icon = Icons.Filled.Person,
+            icon = Icons.Filled.AccountCircle,
             color = OceanBlue,
             cornerShape = ShapeButton.medium,
             isError = isErrorUsername
@@ -79,34 +111,25 @@ fun LoginScreen(
             isError = isErrorPassword
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
-        CustomButton(
-            onClick = {
-                isErrorUsername = username.isEmpty()
-                isErrorPassword = password.isEmpty()
-
-                val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
-                navController?.let {
-                    userLogin.login(
-                        it,
-                        context,
-                        onSuccess = { response ->
-                            loginResponse = response
-                            userViewModel.setUserLoginResponse(response)
-                        },
-                        onFailure = { message ->
-                            errorMessage = message
-                        }
-                    )
-                }
-
+        CustomInput(
+            textInput = checkPassword,
+            onValueChange = { letter ->
+                checkPassword = letter
             },
-            colorsList = buttonColors,
-            text = "Login",
-            cornerShape = ShapeButton.medium
+            label = "Insert your password:",
+            placeholder = "Insira sua senha:",
+            icon = Icons.Filled.Lock,
+            keyboard = KeyboardType.Password,
+            isPassword = true,
+            color = OceanBlue,
+            cornerShape = ShapeButton.medium,
+            isError = isErrorCheckPassword
         )
-        errorMessage?.let {ErrorMessage(text = it)}
+        if (isErrorCheckPassword) ErrorMessage(text = "Senha é obrigatório!")
+        
+//        errorMessage?.let { ErrorMessage(text = it) }
         CustomButton(
-            onClick = { navController?.navigate("register") },
+            onClick = { navController?.navigate("login") },
             colorsList = buttonColors,
             text = "Register",
             cornerShape = ShapeButton.medium
@@ -114,4 +137,8 @@ fun LoginScreen(
     }
 }
 
-val buttonColors = listOf(OceanBlue, Color.Blue, OceanBlue)
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun RegisterScreenPrev() {
+    RegisterScreen()
+}
