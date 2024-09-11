@@ -1,5 +1,6 @@
 package br.dev.locaweb_app.navigation
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -11,22 +12,29 @@ import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
 import br.dev.locaweb_app.ui.screens.RegisterScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     userViewModel: UserViewModel = viewModel(),
+    snackbarHostState: SnackbarHostState,
+    scope: CoroutineScope,
     startDestination: String = "login") {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "login") {
             LoginScreen(
                 navController = navController,
-                userViewModel = userViewModel
+                userViewModel = userViewModel,
+                snackbarHostState = snackbarHostState,
+                scope = scope
                 )
         }
         composable(route = "register") {
             RegisterScreen(
                 navController = navController,
+                snackbarHostState = snackbarHostState,
+                scope = scope
 //                userViewModel = userViewModel
                 )
         }

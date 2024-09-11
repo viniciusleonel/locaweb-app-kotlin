@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,12 +27,15 @@ import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
-    userViewModel: UserViewModel
+    userViewModel: UserViewModel,
+    snackbarHostState: SnackbarHostState,
+    scope: CoroutineScope,
 ) {
 
     val context = LocalContext.current

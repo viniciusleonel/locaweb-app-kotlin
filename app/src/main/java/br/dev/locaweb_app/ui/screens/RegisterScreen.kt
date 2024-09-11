@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,11 +32,15 @@ import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
+    snackbarHostState: SnackbarHostState,
+    scope: CoroutineScope,
 //    userViewModel: UserViewModel
 ) {
 
@@ -129,16 +135,19 @@ fun RegisterScreen(
         
 //        errorMessage?.let { ErrorMessage(text = it) }
         CustomButton(
-            onClick = { navController?.navigate("login") },
+            onClick = {
+//                navController?.navigate("login")
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Registrado realizado com sucesso",
+                        actionLabel = "Fechar",
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            },
             colorsList = buttonColors,
             text = "Register",
             cornerShape = ShapeButton.medium
         )
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun RegisterScreenPrev() {
-    RegisterScreen()
 }
