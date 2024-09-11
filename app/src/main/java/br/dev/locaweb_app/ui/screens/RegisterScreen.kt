@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +22,6 @@ import androidx.navigation.NavController
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
-import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
@@ -35,7 +33,6 @@ fun RegisterScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
     snackBarHostState: SnackbarHostState,
-    snackBarStatus: SnackBarStatus, // Atualizado para SnackBarStatus
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
 //    userViewModel: UserViewModel

@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
@@ -36,13 +35,11 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
-    userViewModel: UserViewModel,
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
+    userViewModel: UserViewModel,
 ) {
-
-    val context = LocalContext.current
 
     var loginResponse by remember {mutableStateOf(UserLoginResponse())}
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -101,7 +98,7 @@ fun LoginScreen(
                             snackBarViewModel.showSuccessSnackbar()
                             scope.launch {
                                 snackBarHostState.showSnackbar(
-                                    message = "Registro realizado com sucesso",
+                                    message = "Login realizado com sucesso!",
                                     duration = SnackbarDuration.Short
                                 )
                             }

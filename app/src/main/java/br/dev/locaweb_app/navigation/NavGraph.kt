@@ -30,17 +30,16 @@ fun NavGraph(
         composable(route = "login") {
             LoginScreen(
                 navController = navController,
-                userViewModel = userViewModel,
                 snackBarViewModel = snackBarViewModel,
                 snackBarHostState = snackBarHostState,
-                scope = scope
+                scope = scope,
+                userViewModel = userViewModel
             )
         }
         composable(route = "register") {
             RegisterScreen(
                 navController = navController,
                 snackBarHostState = snackBarHostState,
-                snackBarStatus = snackBarStatus,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope
             )
