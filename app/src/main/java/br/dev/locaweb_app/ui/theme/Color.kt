@@ -14,3 +14,5 @@ val LakeBlue = Color(0xFF43C6AC)
 val OceanBlue = Color(0xFF191654)
 val Blue = Color(0xFF0082c8)
 val LightRed = Color(0xFFEB5757)
+
+val ButtonColors = listOf(OceanBlue, Color.Blue, OceanBlue)

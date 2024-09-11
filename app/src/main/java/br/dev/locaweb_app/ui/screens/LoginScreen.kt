@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
@@ -26,6 +25,7 @@ import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import kotlinx.coroutines.CoroutineScope
@@ -117,17 +117,17 @@ fun LoginScreen(
                 }
 
             },
-            colorsList = buttonColors,
+            colorsList = ButtonColors,
             text = "Login",
             cornerShape = ShapeButton.medium
         )
         CustomButton(
             onClick = { navController?.navigate("register") },
-            colorsList = buttonColors,
+            colorsList = ButtonColors,
             text = "Register",
             cornerShape = ShapeButton.medium
         )
     }
 }
 
-val buttonColors = listOf(OceanBlue, Color.Blue, OceanBlue)
+

@@ -23,6 +23,7 @@ import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import kotlinx.coroutines.CoroutineScope
@@ -129,6 +130,7 @@ fun RegisterScreen(
                     )
                 }
             },
+            colorsList = ButtonColors,
             text = "Register",
             cornerShape = ShapeButton.medium
         )
