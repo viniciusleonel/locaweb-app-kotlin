@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
@@ -27,7 +26,6 @@ import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun LoginScreen(

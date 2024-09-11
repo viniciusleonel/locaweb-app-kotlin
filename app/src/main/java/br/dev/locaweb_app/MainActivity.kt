@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,21 +47,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LocawebappTheme {
-                val systemUiController = rememberSystemUiController()
-                systemUiController.setStatusBarColor(color = OceanBlue)
                 val navController = rememberNavController()
                 Scaffold(
                     topBar = { NavBar(navController = navController) },
                     bottomBar = { MenuBar(navController = navController) }
                 ) { innerPadding ->
-                    // Box para garantir que a MenuBar ocupe toda a altura disponível
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding), // Adiciona o padding interno do Scaffold
+                            .padding(innerPadding),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        val systemUiController = rememberSystemUiController()
+                        systemUiController.setStatusBarColor(color = OceanBlue)
                         NavGraph(navController = navController)
                     }
                 }
