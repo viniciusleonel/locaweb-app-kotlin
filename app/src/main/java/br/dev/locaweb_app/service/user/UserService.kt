@@ -28,19 +28,3 @@ interface UserService {
     @GET("user/{id}")
     fun getUserById(@Path("id") id: Long): Call<UserLoginResponse>
 }
-
-fun loginSuccessToast(context: Context) {
-    Toast.makeText(context, "Login realizado com sucesso", Toast.LENGTH_LONG).show()
-}
-
-fun loginFailureToast(context: Context, text: String) {
-    Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-}
-
-//fun UserLoginResponse.toJson(): String {
-//    return Gson().toJson(this)
-//}
-//
-//fun fromJsonToUserLoginResponse(json: String): UserLoginResponse {
-//    return Gson().fromJson(json, UserLoginResponse::class.java)
-//}

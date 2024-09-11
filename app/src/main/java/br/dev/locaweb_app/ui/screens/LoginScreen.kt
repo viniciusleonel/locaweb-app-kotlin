@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,16 +26,19 @@ import br.dev.locaweb_app.service.user.login
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
+import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
     userViewModel: UserViewModel,
-    snackbarHostState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
+    snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
 ) {
 
@@ -90,13 +94,27 @@ fun LoginScreen(
                 navController?.let {
                     userLogin.login(
                         it,
-                        context,
                         onSuccess = { response ->
                             loginResponse = response
                             userViewModel.setUserLoginResponse(response)
+
+                            snackBarViewModel.showSuccessSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = "Registro realizado com sucesso",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
                         },
                         onFailure = { message ->
                             errorMessage = message
+                            snackBarViewModel.showErrorSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = errorMessage.toString(),
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
                         }
                     )
                 }
@@ -106,7 +124,6 @@ fun LoginScreen(
             text = "Login",
             cornerShape = ShapeButton.medium
         )
-        errorMessage?.let {ErrorMessage(text = it)}
         CustomButton(
             onClick = { navController?.navigate("register") },
             colorsList = buttonColors,

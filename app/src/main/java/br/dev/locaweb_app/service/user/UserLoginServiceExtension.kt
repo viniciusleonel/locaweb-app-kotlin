@@ -1,6 +1,5 @@
 package br.dev.locaweb_app.service.user
 
-import android.content.Context
 import android.util.Log
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.ErrorResponse
@@ -14,7 +13,6 @@ import retrofit2.Response
 
 fun UserLogin.login(
     navController: NavController,
-    context: Context,
     onSuccess: (UserLoginResponse) -> Unit,
     onFailure: (String) -> Unit
 ) {
@@ -27,7 +25,6 @@ fun UserLogin.login(
             if (response.isSuccessful) {
                 val userLoginResponse = response.body()
                 Log.i("LOGIN", "onResponse $userLoginResponse")
-                loginSuccessToast(context)
                 userLoginResponse?.let { onSuccess(it) }
                 navController.navigate("profile")
             } else {
@@ -36,9 +33,6 @@ fun UserLogin.login(
                     Gson().fromJson(it, ErrorResponse::class.java)
                 }
                 val errorMessage = errorResponse?.error ?: "Campos obrigatórios"
-                if (errorBody != null) {
-                    loginFailureToast(context, errorBody)
-                }
                 Log.i("LOGIN", "Error Response: $errorBody")
                 onFailure(errorMessage)
             }

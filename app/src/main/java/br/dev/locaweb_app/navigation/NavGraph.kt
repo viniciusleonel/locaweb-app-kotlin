@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.dev.locaweb_app.model.user.UserViewModel
+import br.dev.locaweb_app.ui.components.SnackBarStatus
+import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
@@ -18,37 +20,46 @@ import kotlinx.coroutines.CoroutineScope
 fun NavGraph(
     navController: NavHostController,
     userViewModel: UserViewModel = viewModel(),
-    snackbarHostState: SnackbarHostState,
+    snackBarViewModel: SnackBarViewModel,
+    snackBarHostState: SnackbarHostState,
+    snackBarStatus: SnackBarStatus,
     scope: CoroutineScope,
-    startDestination: String = "login") {
+    startDestination: String = "login"
+) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "login") {
             LoginScreen(
                 navController = navController,
                 userViewModel = userViewModel,
-                snackbarHostState = snackbarHostState,
+                snackBarViewModel = snackBarViewModel,
+                snackBarHostState = snackBarHostState,
                 scope = scope
-                )
+            )
         }
         composable(route = "register") {
             RegisterScreen(
                 navController = navController,
-                snackbarHostState = snackbarHostState,
+                snackBarHostState = snackBarHostState,
+                snackBarStatus = snackBarStatus,
+                snackBarViewModel = snackBarViewModel,
                 scope = scope
-//                userViewModel = userViewModel
-                )
+            )
         }
         composable(route = "profile") {
             ProfileScreen(
                 navController = navController,
                 userViewModel = userViewModel
-                )
+            )
         }
         composable(route = "settings") {
-            SettingsScreen(navController = navController)
+            SettingsScreen(
+                navController = navController
+            )
         }
         composable(route = "emails") {
-            EmailsScreen(navController = navController)
+            EmailsScreen(
+                navController = navController
+            )
         }
     }
 }
