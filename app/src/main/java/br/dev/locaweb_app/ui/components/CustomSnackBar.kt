@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,6 +44,12 @@ fun CustomSnackBar(
             containerColor = Color(0xFFDD493E)
             contentColor = Color.White
             icon = Icons.Outlined.Warning
+            iconColor = Color.White
+        }
+        SnackBarStatus.REGULAR -> {
+            containerColor = Color(0xFF413F3F)
+            contentColor = Color.White
+            icon = Icons.Outlined.Info
             iconColor = Color.White
         }
         SnackBarStatus.NONE -> {

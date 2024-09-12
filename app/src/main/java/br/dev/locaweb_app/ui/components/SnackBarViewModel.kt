@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 enum class SnackBarStatus {
     SUCCESS,
     ERROR,
+    REGULAR,
     NONE
 }
 
@@ -19,6 +20,10 @@ class SnackBarViewModel : ViewModel() {
 
     fun showErrorSnackbar() {
         snackBarState.value = SnackBarStatus.ERROR
+    }
+
+    fun showRegularSnackbar() {
+        snackBarState.value = SnackBarStatus.REGULAR
     }
 
     fun hideSnackbar() {

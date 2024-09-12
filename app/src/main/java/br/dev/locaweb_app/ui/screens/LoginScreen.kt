@@ -84,36 +84,39 @@ fun LoginScreen(
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
         CustomButton(
             onClick = {
-                isErrorUsername = username.isEmpty()
-                isErrorPassword = password.isEmpty()
 
-                val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
-                navController?.let {
-                    userLogin.login(
-                        it,
-                        onSuccess = { response ->
-                            loginResponse = response
-                            userViewModel.setUserLoginResponse(response)
+                if (username.isNotEmpty() && password.isNotEmpty()) {
+                    val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
+                    navController?.let {
+                        userLogin.login(
+                            it,
+                            onSuccess = { response ->
+                                loginResponse = response
+                                userViewModel.setUserLoginResponse(response)
 
-                            snackBarViewModel.showSuccessSnackbar()
-                            scope.launch {
-                                snackBarHostState.showSnackbar(
-                                    message = "Login realizado com sucesso!",
-                                    duration = SnackbarDuration.Short
-                                )
+                                snackBarViewModel.showSuccessSnackbar()
+                                scope.launch {
+                                    snackBarHostState.showSnackbar(
+                                        message = "Login realizado com sucesso!",
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
+                            },
+                            onFailure = { message ->
+                                errorMessage = message
+                                snackBarViewModel.showErrorSnackbar()
+                                scope.launch {
+                                    snackBarHostState.showSnackbar(
+                                        message = errorMessage.toString(),
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
                             }
-                        },
-                        onFailure = { message ->
-                            errorMessage = message
-                            snackBarViewModel.showErrorSnackbar()
-                            scope.launch {
-                                snackBarHostState.showSnackbar(
-                                    message = errorMessage.toString(),
-                                    duration = SnackbarDuration.Short
-                                )
-                            }
-                        }
-                    )
+                        )
+                    }
+                } else {
+                    isErrorUsername = username.isEmpty()
+                    isErrorPassword = password.isEmpty()
                 }
 
             },

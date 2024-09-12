@@ -19,7 +19,7 @@ import br.dev.locaweb_app.ui.components.CustomSnackBar
 import br.dev.locaweb_app.ui.components.MenuBar
 import br.dev.locaweb_app.ui.components.NavBar
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
-import br.dev.locaweb_app.ui.theme.OceanBlue
+import br.dev.locaweb_app.ui.theme.NavColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -50,7 +50,7 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val systemUiController = rememberSystemUiController()
-            systemUiController.setStatusBarColor(color = OceanBlue)
+            systemUiController.setStatusBarColor(color = NavColor)
 
             // Navegação principal
             NavGraph(

@@ -17,8 +17,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
+import br.dev.locaweb_app.model.user.UserRegister
+import br.dev.locaweb_app.model.user.UserRegisterResponse
+import br.dev.locaweb_app.service.user.register
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
@@ -35,8 +39,7 @@ fun RegisterScreen(
     navController: NavController? = null,
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
-    scope: CoroutineScope,
-//    userViewModel: UserViewModel
+    scope: CoroutineScope
 ) {
 
     var name by remember { mutableStateOf("") }
@@ -49,6 +52,36 @@ fun RegisterScreen(
     var isErrorUsername by remember { mutableStateOf(false) }
     var isErrorPassword by remember { mutableStateOf(false) }
     var isErrorCheckPassword by remember { mutableStateOf(false) }
+    var passwordsMatchError by remember { mutableStateOf(false) }
+    var userRegisterResponse by remember { mutableStateOf(UserRegisterResponse()) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
+    fun clearErrors() {
+        isErrorName = false
+        isErrorEmail = false
+        isErrorUsername = false
+        isErrorPassword = false
+        isErrorCheckPassword = false
+        passwordsMatchError = false
+    }
+
+    fun formIsEmpty(): Boolean {
+        clearErrors()
+        isErrorName = name.isEmpty()
+        isErrorEmail = email.isEmpty()
+        isErrorUsername = username.isEmpty()
+        isErrorPassword = password.isEmpty()
+        isErrorCheckPassword = checkPassword.isEmpty()
+        if (isErrorName || isErrorEmail || isErrorUsername || isErrorPassword || isErrorCheckPassword) {
+            return true
+        }
+        if (password != checkPassword) {
+            passwordsMatchError = true
+            return true
+        }
+        return false
+    }
+
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -63,6 +96,7 @@ fun RegisterScreen(
             icon = Icons.Filled.Person,
             color = OceanBlue,
             cornerShape = ShapeButton.medium,
+            capitalization = KeyboardCapitalization.Words,
             isError = isErrorName
         )
         if (isErrorName) ErrorMessage(text = "Nome é obrigatório!")
@@ -75,6 +109,7 @@ fun RegisterScreen(
             icon = Icons.Filled.Email,
             color = OceanBlue,
             cornerShape = ShapeButton.medium,
+            keyboard = KeyboardType.Email,
             isError = isErrorEmail
         )
         if (isErrorEmail) ErrorMessage(text = "Email é obrigatório!")
@@ -101,7 +136,7 @@ fun RegisterScreen(
             isPassword = true,
             color = OceanBlue,
             cornerShape = ShapeButton.medium,
-            isError = isErrorPassword
+            isError = isErrorPassword || passwordsMatchError
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
 
@@ -115,19 +150,47 @@ fun RegisterScreen(
             isPassword = true,
             color = OceanBlue,
             cornerShape = ShapeButton.medium,
-            isError = isErrorCheckPassword
+            isError = isErrorCheckPassword || passwordsMatchError
         )
         if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
-
+        if (passwordsMatchError) ErrorMessage(text = "As senhas precisam ser iguais!")
+        val userRegister = UserRegister(name, email, username, password)
         CustomButton(
             onClick = {
-                snackBarViewModel.showErrorSnackbar()
 
-                scope.launch {
-                    snackBarHostState.showSnackbar(
-                        message = "Registro realizado com sucesso",
-                        duration = SnackbarDuration.Short
-                    )
+                if (!formIsEmpty()) {
+                    navController?.let {
+                        userRegister.register(it,
+                            onSuccess = { response ->
+                                userRegisterResponse = response
+                                snackBarViewModel.showSuccessSnackbar()
+                                scope.launch {
+                                    snackBarHostState.showSnackbar(
+                                        message = "Registrado! Realize o login.",
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
+                            },
+                            onFailure = { message ->
+                                errorMessage = message
+                                snackBarViewModel.showErrorSnackbar()
+                                scope.launch {
+                                    snackBarHostState.showSnackbar(
+                                        message = errorMessage.toString(),
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
+                            }
+                        )
+                    }
+                } else {
+                    snackBarViewModel.showErrorSnackbar()
+                    scope.launch {
+                        snackBarHostState.showSnackbar(
+                            message = "Erro ao registrar!",
+                            duration = SnackbarDuration.Short
+                        )
+                    }
                 }
             },
             colorsList = ButtonColors,
