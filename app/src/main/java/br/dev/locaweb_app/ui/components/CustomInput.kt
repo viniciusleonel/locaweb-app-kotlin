@@ -43,7 +43,8 @@ fun CustomInput(
     keyboard: KeyboardType = KeyboardType.Text,
     capitalization: KeyboardCapitalization = KeyboardCapitalization.None,
     isPassword: Boolean = false,
-    isError: Boolean = false
+    isError: Boolean = false,
+    enabled: Boolean = true
 ) {
 
     var text by remember {
@@ -56,8 +57,8 @@ fun CustomInput(
             .padding(start = 20.dp, top = 0.dp, end = 20.dp, bottom = 10.dp),
         value = text,
         onValueChange = { letter ->
-            text = letter // Atualizando o estado localmente
-            onValueChange(letter) // Passando o valor atualizado para a tela
+            text = letter
+            onValueChange(letter)
         },
         label = {
             label?.let {
@@ -87,11 +88,14 @@ fun CustomInput(
             focusedPlaceholderColor = Color.Gray,
             focusedContainerColor = Color.Transparent,
             unfocusedContainerColor = Color.Transparent,
-            errorContainerColor = Color.Transparent
+            errorContainerColor = Color.Transparent,
+            disabledContainerColor = Color(0xFFB7BDE7),
+            disabledTextColor = Color.Gray
         ),
         singleLine = true,
         shape = cornerShape ?: ShapeButton.small,
-        isError = isError
+        isError = isError,
+        enabled = enabled
     )
 }
 
