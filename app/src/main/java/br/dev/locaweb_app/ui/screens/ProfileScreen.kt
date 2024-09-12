@@ -33,17 +33,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import br.dev.locaweb_app.model.MessageResponse
 import br.dev.locaweb_app.model.user.UserLoginResponse
 import br.dev.locaweb_app.model.user.UserRegister
 import br.dev.locaweb_app.model.user.UserRegisterResponse
 import br.dev.locaweb_app.model.user.UserUpdate
 import br.dev.locaweb_app.model.user.UserViewModel
+import br.dev.locaweb_app.service.user.deleteUserById
 import br.dev.locaweb_app.service.user.update
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
+import br.dev.locaweb_app.ui.components.DeleteDialog
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
+import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import br.dev.locaweb_app.ui.theme.Typography
@@ -72,8 +76,10 @@ fun ProfileScreen(
     var isErrorCheckPassword by remember { mutableStateOf(false) }
     var passwordsMatchError by remember { mutableStateOf(false) }
     var userUpdateResponse by remember { mutableStateOf(UserLoginResponse()) }
+    var userDeleteResponse by remember { mutableStateOf(MessageResponse()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isEditing by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
 
     fun clearErrors() {
         isErrorName = false
@@ -250,7 +256,49 @@ fun ProfileScreen(
                         colorsList = ButtonColors,
                         text = "Edit Profile"
                     )
+                    CustomButton(
+                        onClick = {
+                            showDialog = true
+                        },
+                        cornerShape = ShapeButton.medium,
+                        colorsList = ButtonColorsWarning,
+                        text = "Delete Account"
+                    )
                 }
+
+                if (showDialog)
+                    DeleteDialog(
+                        dialogState = showDialog,
+                        onConfirmRequest = {
+
+                            deleteUserById(user.id,
+                                onSuccess = {response ->
+                                    userDeleteResponse = response
+                                    snackBarViewModel.showSuccessSnackbar()
+                                    scope.launch {
+                                        snackBarHostState.showSnackbar(
+                                            message = "Usuário deletado com sucesso!",
+                                            duration = SnackbarDuration.Short
+                                        )
+                                    }
+                                    showDialog = false
+                                    navController?.navigate("login")
+                                },
+                                onFailure = { message ->
+                                    errorMessage = message
+                                    snackBarViewModel.showErrorSnackbar()
+                                    scope.launch {
+                                        snackBarHostState.showSnackbar(
+                                            message = errorMessage.toString(),
+                                            duration = SnackbarDuration.Short
+                                        )
+                                    }
+                                    showDialog = false
+                                }
+                            )
+                        },
+                        onDismissRequest = { showDialog = false }
+                    )
             }
         } else {
             Text(text = "No user data available")

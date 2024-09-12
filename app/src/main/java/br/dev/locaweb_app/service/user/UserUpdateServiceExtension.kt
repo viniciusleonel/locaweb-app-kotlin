@@ -3,7 +3,6 @@ package br.dev.locaweb_app.service.user
 import android.util.Log
 import br.dev.locaweb_app.model.ErrorResponse
 import br.dev.locaweb_app.model.user.UserLoginResponse
-import br.dev.locaweb_app.model.user.UserRegisterResponse
 import br.dev.locaweb_app.model.user.UserUpdate
 import br.dev.locaweb_app.service.RetrofitFactory
 import com.google.gson.Gson

@@ -13,8 +13,10 @@ val Pink40 = Color(0xFF7D5260)
 val LakeBlue = Color(0xFF43C6AC)
 val OceanBlue = Color(0xFF191654)
 val Blue = Color(0xFF0835A5)
-val LightRed = Color(0xFFEB5757)
+val Red = Color(0xFFdd1818)
+val DarkRed = Color(0xFF333333)
 
 val ButtonColors = listOf(OceanBlue, Color.Blue, OceanBlue)
+val ButtonColorsWarning = listOf(DarkRed, Red, DarkRed)
 
 val NavColor = Blue

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.ErrorResponse
+import br.dev.locaweb_app.model.MessageResponse
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
 import br.dev.locaweb_app.model.user.UserRegister
@@ -16,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -37,4 +39,7 @@ interface UserService {
 
     @PUT("user/{id}")
     fun updateUserById(@Path("id") id: Long, @Body userUpdate: UserUpdate): Call<UserLoginResponse>
+
+    @DELETE("user/{id}")
+    fun deleteUserById(@Path("id") id: Long): Call<MessageResponse>
 }

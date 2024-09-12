@@ -33,7 +33,7 @@ fun MenuBar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(80.dp)
+                .height(70.dp)
         ) {
             MenuItem(
                 icon = Icons.Filled.Settings,
