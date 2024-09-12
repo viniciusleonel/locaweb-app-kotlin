@@ -3,9 +3,7 @@ package br.dev.locaweb_app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
@@ -22,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserRegister
 import br.dev.locaweb_app.model.user.UserRegisterResponse
@@ -165,17 +162,17 @@ fun RegisterScreen(
 
                 if (!formIsEmpty()) {
                     navController?.let {
-                        userRegister.register(it,
-                            onSuccess = { response ->
-                                userRegisterResponse = response
-                                snackBarViewModel.showSuccessSnackbar()
-                                scope.launch {
-                                    snackBarHostState.showSnackbar(
-                                        message = "Registrado! Realize o login.",
-                                        duration = SnackbarDuration.Short
-                                    )
-                                }
-                            },
+                        userRegister.register(onSuccess = { response ->
+                            userRegisterResponse = response
+                            snackBarViewModel.showSuccessSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = "Registrado! Realize o login.",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                            navController.navigate("login")
+                        },
                             onFailure = { message ->
                                 errorMessage = message
                                 snackBarViewModel.showErrorSnackbar()

@@ -89,7 +89,6 @@ fun LoginScreen(
                     val userLogin = UserLogin(username.lowercase().replace(" ", ""), password)
                     navController?.let {
                         userLogin.login(
-                            it,
                             onSuccess = { response ->
                                 loginResponse = response
                                 userViewModel.setUserLoginResponse(response)
@@ -101,6 +100,7 @@ fun LoginScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
+                                navController.navigate("profile")
                             },
                             onFailure = { message ->
                                 errorMessage = message
