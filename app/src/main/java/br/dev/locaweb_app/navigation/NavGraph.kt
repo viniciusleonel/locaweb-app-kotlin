@@ -47,6 +47,9 @@ fun NavGraph(
         composable(route = "profile") {
             ProfileScreen(
                 navController = navController,
+                snackBarHostState = snackBarHostState,
+                snackBarViewModel = snackBarViewModel,
+                scope = scope,
                 userViewModel = userViewModel
             )
         }

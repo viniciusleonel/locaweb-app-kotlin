@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,20 +33,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import br.dev.locaweb_app.model.user.UserLoginResponse
+import br.dev.locaweb_app.model.user.UserRegister
 import br.dev.locaweb_app.model.user.UserRegisterResponse
+import br.dev.locaweb_app.model.user.UserUpdate
 import br.dev.locaweb_app.model.user.UserViewModel
+import br.dev.locaweb_app.service.user.update
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
+import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
 import br.dev.locaweb_app.ui.theme.Typography
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     navController: NavController? = null,
+    snackBarHostState: SnackbarHostState,
+    snackBarViewModel: SnackBarViewModel,
+    scope: CoroutineScope,
     userViewModel: UserViewModel,
 ) {
     val user = userViewModel.userLoginResponse.value
@@ -59,7 +71,7 @@ fun ProfileScreen(
     var isErrorPassword by remember { mutableStateOf(false) }
     var isErrorCheckPassword by remember { mutableStateOf(false) }
     var passwordsMatchError by remember { mutableStateOf(false) }
-    var userRegisterResponse by remember { mutableStateOf(UserRegisterResponse()) }
+    var userUpdateResponse by remember { mutableStateOf(UserLoginResponse()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isEditing by remember { mutableStateOf(false) }
 
@@ -98,7 +110,7 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (user != null) {
-            Column (){
+            Column() {
                 Text(
                     text = "Name:",
                     style = Typography.labelMedium,
@@ -117,7 +129,11 @@ fun ProfileScreen(
                 if (isErrorName) ErrorMessage(text = "Name é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Text(text = "Email:", style = Typography.labelMedium, modifier = Modifier.padding(20.dp, 0.dp))
+                Text(
+                    text = "Email:",
+                    style = Typography.labelMedium,
+                    modifier = Modifier.padding(20.dp, 0.dp)
+                )
                 CustomInput(
                     textInput = email,
                     onValueChange = { email = it },
@@ -131,7 +147,11 @@ fun ProfileScreen(
                 if (isErrorEmail) ErrorMessage(text = "Email é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Text(text = "Username:", style = Typography.labelMedium, modifier = Modifier.padding(20.dp, 0.dp))
+                Text(
+                    text = "Username:",
+                    style = Typography.labelMedium,
+                    modifier = Modifier.padding(20.dp, 0.dp)
+                )
                 CustomInput(
                     textInput = username,
                     onValueChange = { username = it },
@@ -144,7 +164,11 @@ fun ProfileScreen(
                 if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Text(text = "Password:", style = Typography.labelMedium, modifier = Modifier.padding(20.dp, 0.dp))
+                Text(
+                    text = "Password:",
+                    style = Typography.labelMedium,
+                    modifier = Modifier.padding(20.dp, 0.dp)
+                )
                 CustomInput(
                     textInput = password,
                     onValueChange = { password = it },
@@ -152,18 +176,24 @@ fun ProfileScreen(
                     keyboard = KeyboardType.Password,
                     color = OceanBlue,
                     cornerShape = ShapeButton.medium,
+                    isPassword = true,
                     isError = isErrorPassword || passwordsMatchError,
                     enabled = isEditing
                 )
                 if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Text(text = "Confirm Password:", style = Typography.labelMedium, modifier = Modifier.padding(20.dp, 0.dp))
+                Text(
+                    text = "Confirm Password:",
+                    style = Typography.labelMedium,
+                    modifier = Modifier.padding(20.dp, 0.dp)
+                )
                 CustomInput(
                     textInput = checkPassword,
                     onValueChange = { checkPassword = it },
                     icon = Icons.Filled.Lock,
                     keyboard = KeyboardType.Password,
+                    isPassword = true,
                     color = OceanBlue,
                     cornerShape = ShapeButton.medium,
                     isError = isErrorCheckPassword || passwordsMatchError,
@@ -174,12 +204,35 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(5.dp))
 
+                val userUpdate = UserUpdate(name, email, username, password)
                 // Edit and Save button logic
                 if (isEditing) {
                     CustomButton(
                         onClick = {
                             if (!formIsEmpty()) {
                                 // Save changes to the ViewModel or backend API
+                                userUpdate.update(user.id,
+                                    onSuccess = { response ->
+                                        userUpdateResponse = response
+                                        snackBarViewModel.showSuccessSnackbar()
+                                        scope.launch {
+                                            snackBarHostState.showSnackbar(
+                                                message = "Atualizado com sucesso!",
+                                                duration = SnackbarDuration.Short
+                                            )
+                                        }
+                                    },
+                                    onFailure = { message ->
+                                        errorMessage = message
+                                        snackBarViewModel.showErrorSnackbar()
+                                        scope.launch {
+                                            snackBarHostState.showSnackbar(
+                                                message = errorMessage.toString(),
+                                                duration = SnackbarDuration.Short
+                                            )
+                                        }
+                                    }
+                                )
                                 userViewModel.updateUserProfile(name, username, email)
                                 isEditing = false // End editing mode
                             }
@@ -203,11 +256,4 @@ fun ProfileScreen(
             Text(text = "No user data available")
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun ProfileScreenPrev() {
-    val userViewModel: UserViewModel = viewModel()
-    ProfileScreen(userViewModel = userViewModel)
 }
