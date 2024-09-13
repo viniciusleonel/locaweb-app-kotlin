@@ -11,6 +11,7 @@ inline fun <reified T> executeApiCall(
     crossinline onSuccess: (T) -> Unit,
     crossinline onFailure: (String) -> Unit
 ) {
+
     call.enqueue(object : Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {
             if (response.isSuccessful) {
@@ -31,7 +32,7 @@ inline fun <reified T> executeApiCall(
         }
 
         override fun onFailure(call: Call<T>, t: Throwable) {
-            val errorMessage = t.message ?: "Unknown Error"
+            val errorMessage = t.message ?: "Error connecting to server!"
             onFailure(errorMessage)
         }
     })

@@ -47,7 +47,7 @@ fun CustomButton(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(20.dp, 10.dp)
+            .padding(20.dp, 0.dp)
             .background(
                 brush,
                 shape = cornerShape

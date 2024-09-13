@@ -10,8 +10,4 @@ class UserViewModel : ViewModel() {
     fun setUserLoginResponse(response: UserLoginResponse) {
         userLoginResponse.value = response
     }
-
-    fun updateUserProfile(name: String, username: String, email: String) {
-
-    }
 }

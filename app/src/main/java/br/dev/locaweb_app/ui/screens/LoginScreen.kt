@@ -2,7 +2,9 @@ package br.dev.locaweb_app.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -16,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
@@ -82,6 +85,7 @@ fun LoginScreen(
             isError = isErrorPassword
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
+        Spacer(modifier = Modifier.height(10.dp))
         CustomButton(
             onClick = {
 
@@ -111,6 +115,8 @@ fun LoginScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
+                                if (errorMessage.equals("Login expired!"))
+                                    navController.navigate("login")
                             }
                         )
                     }
@@ -124,6 +130,7 @@ fun LoginScreen(
             text = "Login",
             cornerShape = ShapeButton.medium
         )
+        Spacer(modifier = Modifier.height(15.dp))
         CustomButton(
             onClick = { navController?.navigate("register") },
             colorsList = ButtonColors,

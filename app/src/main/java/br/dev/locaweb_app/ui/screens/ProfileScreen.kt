@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.MessageResponse
 import br.dev.locaweb_app.model.user.UserLoginResponse
+import br.dev.locaweb_app.model.user.UserRegister
 import br.dev.locaweb_app.model.user.UserUpdate
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.user.deleteUserById
@@ -67,9 +68,11 @@ fun ProfileScreen(
     var isErrorPassword by remember { mutableStateOf(false) }
     var isErrorCheckPassword by remember { mutableStateOf(false) }
     var passwordsMatchError by remember { mutableStateOf(false) }
+
     var userUpdateResponse by remember { mutableStateOf(UserLoginResponse()) }
     var userDeleteResponse by remember { mutableStateOf(MessageResponse()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+
     var isEditing by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
 
@@ -112,9 +115,8 @@ fun ProfileScreen(
         return true
     }
 
-
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
@@ -219,12 +221,14 @@ fun ProfileScreen(
                 if (isEditing) {
                     CustomButton(
                         onClick = {
+
                             if (formIsValid(password, checkPassword)) {
                                 val userUpdate = createUserUpdate(name, email, username, password)
 
                                 if (userUpdate.name != null || userUpdate.email != null ||
                                     userUpdate.username != null || userUpdate.password != null
                                 ) {
+
 
                                     userUpdate.update(user.id,
                                         onSuccess = { response ->
@@ -236,7 +240,7 @@ fun ProfileScreen(
                                                     duration = SnackbarDuration.Short
                                                 )
                                             }
-                                            userViewModel.updateUserProfile(name, username, email)
+
                                             isEditing = false
                                         },
                                         onFailure = { message ->
@@ -248,6 +252,8 @@ fun ProfileScreen(
                                                     duration = SnackbarDuration.Short
                                                 )
                                             }
+                                            if (errorMessage.equals("Login expired!"))
+                                                navController?.navigate("login")
                                         }
                                     )
                                 } else {
@@ -266,6 +272,22 @@ fun ProfileScreen(
                         colorsList = ButtonColors,
                         text = "Save Changes"
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    CustomButton(
+                        onClick = {
+                            snackBarViewModel.showRegularSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = "Nenhuma alteração detectada!",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                            isEditing = false
+                        },
+                        cornerShape = ShapeButton.medium,
+                        colorsList = ButtonColorsWarning,
+                        text = "Cancel Changes"
+                    )
                 } else {
                     CustomButton(
                         onClick = {
@@ -275,6 +297,7 @@ fun ProfileScreen(
                         colorsList = ButtonColors,
                         text = "Edit Profile"
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
                     CustomButton(
                         onClick = {
                             showDialog = true
@@ -313,6 +336,8 @@ fun ProfileScreen(
                                         )
                                     }
                                     showDialog = false
+                                    if (errorMessage.equals("Login expired!"))
+                                        navController?.navigate("login")
                                 }
                             )
                         },
