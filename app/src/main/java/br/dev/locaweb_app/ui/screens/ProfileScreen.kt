@@ -13,7 +13,6 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -24,19 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.MessageResponse
 import br.dev.locaweb_app.model.user.UserLoginResponse
-import br.dev.locaweb_app.model.user.UserRegister
-import br.dev.locaweb_app.model.user.UserRegisterResponse
 import br.dev.locaweb_app.model.user.UserUpdate
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.user.deleteUserById
@@ -90,22 +82,36 @@ fun ProfileScreen(
         passwordsMatchError = false
     }
 
-    fun formIsEmpty(): Boolean {
-        clearErrors()
-        isErrorName = name.isEmpty()
-        isErrorEmail = email.isEmpty()
-        isErrorUsername = username.isEmpty()
-        isErrorPassword = password.isEmpty()
-        isErrorCheckPassword = checkPassword.isEmpty()
-        if (isErrorName || isErrorEmail || isErrorUsername || isErrorPassword || isErrorCheckPassword) {
-            return true
-        }
-        if (password != checkPassword) {
-            passwordsMatchError = true
-            return true
-        }
-        return false
+    fun createUserUpdate(
+        name: String,
+        email: String,
+        username: String,
+        password: String
+    ): UserUpdate {
+        return UserUpdate(
+            name = name.ifEmpty { null },
+            email = email.ifEmpty { null },
+            username = username.ifEmpty { null },
+            password = password.ifEmpty { null }
+        )
     }
+
+    fun verifyPassword(password: String, confirmPassword: String): Boolean {
+        return if (password.isNotEmpty()) {
+            if (confirmPassword.isEmpty()) false
+            else password == confirmPassword
+        } else true
+    }
+
+    fun formIsValid(password: String, confirmPassword: String): Boolean {
+        clearErrors()
+        if (!verifyPassword(password, confirmPassword)) {
+            passwordsMatchError = true
+            return false
+        }
+        return true
+    }
+
 
     Column(
         modifier = Modifier
@@ -210,38 +216,51 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(5.dp))
 
-                val userUpdate = UserUpdate(name, email, username, password)
-                // Edit and Save button logic
                 if (isEditing) {
                     CustomButton(
                         onClick = {
-                            if (!formIsEmpty()) {
-                                // Save changes to the ViewModel or backend API
-                                userUpdate.update(user.id,
-                                    onSuccess = { response ->
-                                        userUpdateResponse = response
-                                        snackBarViewModel.showSuccessSnackbar()
-                                        scope.launch {
-                                            snackBarHostState.showSnackbar(
-                                                message = "Atualizado com sucesso!",
-                                                duration = SnackbarDuration.Short
-                                            )
+                            if (formIsValid(password, checkPassword)) {
+                                val userUpdate = createUserUpdate(name, email, username, password)
+
+                                if (userUpdate.name != null || userUpdate.email != null ||
+                                    userUpdate.username != null || userUpdate.password != null
+                                ) {
+
+                                    userUpdate.update(user.id,
+                                        onSuccess = { response ->
+                                            userUpdateResponse = response
+                                            snackBarViewModel.showSuccessSnackbar()
+                                            scope.launch {
+                                                snackBarHostState.showSnackbar(
+                                                    message = "Atualizado com sucesso!",
+                                                    duration = SnackbarDuration.Short
+                                                )
+                                            }
+                                            userViewModel.updateUserProfile(name, username, email)
+                                            isEditing = false
+                                        },
+                                        onFailure = { message ->
+                                            errorMessage = message
+                                            snackBarViewModel.showErrorSnackbar()
+                                            scope.launch {
+                                                snackBarHostState.showSnackbar(
+                                                    message = errorMessage.toString(),
+                                                    duration = SnackbarDuration.Short
+                                                )
+                                            }
                                         }
-                                    },
-                                    onFailure = { message ->
-                                        errorMessage = message
-                                        snackBarViewModel.showErrorSnackbar()
-                                        scope.launch {
-                                            snackBarHostState.showSnackbar(
-                                                message = errorMessage.toString(),
-                                                duration = SnackbarDuration.Short
-                                            )
-                                        }
+                                    )
+                                } else {
+                                    snackBarViewModel.showRegularSnackbar()
+                                    scope.launch {
+                                        snackBarHostState.showSnackbar(
+                                            message = "Nenhuma alteração detectada!",
+                                            duration = SnackbarDuration.Short
+                                        )
                                     }
-                                )
-                                userViewModel.updateUserProfile(name, username, email)
-                                isEditing = false // End editing mode
+                                }
                             }
+
                         },
                         cornerShape = ShapeButton.medium,
                         colorsList = ButtonColors,
@@ -250,7 +269,7 @@ fun ProfileScreen(
                 } else {
                     CustomButton(
                         onClick = {
-                            isEditing = true // Switch to editing mode
+                            isEditing = true
                         },
                         cornerShape = ShapeButton.medium,
                         colorsList = ButtonColors,
@@ -272,7 +291,7 @@ fun ProfileScreen(
                         onConfirmRequest = {
 
                             deleteUserById(user.id,
-                                onSuccess = {response ->
+                                onSuccess = { response ->
                                     userDeleteResponse = response
                                     snackBarViewModel.showSuccessSnackbar()
                                     scope.launch {
