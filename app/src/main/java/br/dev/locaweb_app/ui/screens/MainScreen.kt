@@ -19,12 +19,15 @@ import br.dev.locaweb_app.ui.components.CustomSnackBar
 import br.dev.locaweb_app.ui.components.MenuBar
 import br.dev.locaweb_app.ui.components.NavBar
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.NavColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MainScreen(
-    snackBarViewModel: SnackBarViewModel = viewModel()
+    snackBarViewModel: SnackBarViewModel = viewModel(),
+    themeViewModel: ThemeViewModel = viewModel() // Receba o ViewModel do tema aqui
+
 ) {
     val navController = rememberNavController()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -58,7 +61,8 @@ fun MainScreen(
                 snackBarHostState = snackBarHostState,
                 scope = scope,
                 snackBarStatus = snackBarViewModel.snackBarState.value,
-                snackBarViewModel = snackBarViewModel
+                snackBarViewModel = snackBarViewModel,
+                themeViewModel = themeViewModel
             )
         }
     }

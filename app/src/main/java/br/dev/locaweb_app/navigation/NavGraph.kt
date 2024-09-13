@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.screens.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
@@ -26,6 +27,7 @@ fun NavGraph(
     snackBarHostState: SnackbarHostState,
     snackBarStatus: SnackBarStatus,
     scope: CoroutineScope,
+    themeViewModel: ThemeViewModel,
     startDestination: String = "login"
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
@@ -71,7 +73,8 @@ fun NavGraph(
         }
         composable(route = "theme") {
             ThemeScreen(
-                navController = navController
+                navController = navController,
+                viewModel = themeViewModel
             )
         }
         composable(route = "emails") {
