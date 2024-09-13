@@ -104,7 +104,7 @@ fun LoginScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
-                                navController.navigate("profile")
+                                navController.navigate("settings")
                             },
                             onFailure = { message ->
                                 errorMessage = message

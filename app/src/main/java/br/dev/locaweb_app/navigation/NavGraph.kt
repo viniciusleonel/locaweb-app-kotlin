@@ -9,11 +9,13 @@ import androidx.navigation.compose.composable
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.screens.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.ProfileScreen
 import br.dev.locaweb_app.ui.screens.RegisterScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
+import br.dev.locaweb_app.ui.screens.ThemeScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -47,6 +49,15 @@ fun NavGraph(
         composable(route = "profile") {
             ProfileScreen(
                 navController = navController,
+//                snackBarHostState = snackBarHostState,
+//                snackBarViewModel = snackBarViewModel,
+//                scope = scope,
+//                userViewModel = userViewModel
+            )
+        }
+        composable(route = "edit-profile") {
+            EditProfileScreen(
+                navController = navController,
                 snackBarHostState = snackBarHostState,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
@@ -55,6 +66,11 @@ fun NavGraph(
         }
         composable(route = "settings") {
             SettingsScreen(
+                navController = navController
+            )
+        }
+        composable(route = "theme") {
+            ThemeScreen(
                 navController = navController
             )
         }

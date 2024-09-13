@@ -36,15 +36,6 @@ fun MenuBar(
                 .height(70.dp)
         ) {
             MenuItem(
-                icon = Icons.Filled.Settings,
-                text = "Settings",
-                modifier = Modifier.weight(1f), // Faz com que o MenuItem ocupe toda a largura disponível
-                color = if (currentRoute == "settings") Blue else Color.Black,
-                onClick = {
-                    navController.navigate("settings")
-                }
-            )
-            MenuItem(
                 icon = Icons.Filled.Email,
                 text = "Emails",
                 modifier = Modifier.weight(1f),
@@ -54,15 +45,25 @@ fun MenuBar(
                 }
             )
             MenuItem(
-                icon = Icons.Filled.Person,
-                text = "Profile",
-                modifier = Modifier
-                    .weight(1f),
-                color = if (currentRoute == "profile") Blue else Color.Black,
+                icon = Icons.Filled.Settings,
+                text = "Settings",
+                modifier = Modifier.weight(1f), // Faz com que o MenuItem ocupe toda a largura disponível
+                color = if (currentRoute == "settings") Blue else Color.Black,
                 onClick = {
-                    navController.navigate("profile")
+                    navController.navigate("settings")
                 }
             )
+
+//            MenuItem(
+//                icon = Icons.Filled.Person,
+//                text = "Profile",
+//                modifier = Modifier
+//                    .weight(1f),
+//                color = if (currentRoute == "profile") Blue else Color.Black,
+//                onClick = {
+//                    navController.navigate("profile")
+//                }
+//            )
         }
     }
 }
