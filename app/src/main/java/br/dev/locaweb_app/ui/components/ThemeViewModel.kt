@@ -2,13 +2,20 @@ package br.dev.locaweb_app.ui.components
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.State
 
 class ThemeViewModel : ViewModel() {
-    private val _isDarkTheme = mutableStateOf(false)
-    val isDarkTheme: State<Boolean> = _isDarkTheme
+    val isDarkTheme = mutableStateOf(false)
 
     fun toggleTheme() {
-        _isDarkTheme.value = !_isDarkTheme.value
+        isDarkTheme.value = !isDarkTheme.value
+    }
+
+    fun setLightTheme() {
+        isDarkTheme.value = false
+    }
+
+    fun setDarkTheme() {
+        isDarkTheme.value = true
     }
 }
+

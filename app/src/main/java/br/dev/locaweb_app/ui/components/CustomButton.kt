@@ -1,7 +1,6 @@
 package br.dev.locaweb_app.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -13,12 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.dev.locaweb_app.ui.theme.LakeBlue
-import br.dev.locaweb_app.ui.theme.OceanBlue
-import br.dev.locaweb_app.ui.theme.ShapeButton
+import br.dev.locaweb_app.ui.theme.RegularShape
 
 @Composable
 fun CustomButton(
@@ -27,13 +23,19 @@ fun CustomButton(
     text: String,
     color: Color? = null,
     colorsList: List<Color>? = null,
-    cornerShape: CornerBasedShape
+    cornerShape: CornerBasedShape? = null,
+    themeViewModel: ThemeViewModel? = null
 ) {
+    val isDarkTheme = themeViewModel?.isDarkTheme?.value
+
     val brush = when {
         colorsList != null -> Brush.horizontalGradient(colorsList)
         color != null -> Brush.linearGradient(listOf(color, color))
-        else -> Brush.linearGradient(listOf(Color.Black, Color.Black)) // Cor padrão
+        isDarkTheme == true -> Brush.linearGradient(listOf(Color.White, Color.White))
+        else -> Brush.linearGradient(listOf(Color.Black, Color.Black))
     }
+
+    val textColor = if(isDarkTheme == true && colorsList == null && color == null) Color.Black else Color.White
 
     Button(
         onClick,
@@ -49,47 +51,15 @@ fun CustomButton(
             .fillMaxWidth()
             .padding(20.dp, 0.dp)
             .background(
-                brush,
-                shape = cornerShape
+                brush = brush,
+                shape = cornerShape ?: RegularShape
             ),
     ) {
         Text(
             text = text,
             fontSize = 18.sp,
-            color = Color.White,
+            color =  textColor,
             fontWeight = FontWeight.Bold
         )
-    }
-}
-
-val colors = listOf(
-    OceanBlue,
-    LakeBlue,
-    OceanBlue
-)
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun ButtonPrev() {
-    Column {
-        CustomButton(
-            onClick = {},
-            text = "Custom",
-            colorsList = listOf(OceanBlue, LakeBlue),
-            cornerShape = ShapeButton.medium
-        )
-        CustomButton(
-            onClick = {},
-            text = "Custom",
-            colorsList = listOf(OceanBlue, LakeBlue, Color.Yellow, Color.Red),
-            cornerShape = ShapeButton.medium
-        )
-        CustomButton(
-            onClick = {},
-            text = "Single Color",
-            color = OceanBlue,
-            cornerShape = ShapeButton.medium
-        )
-        CustomButton(onClick = {}, text = "Default Color", cornerShape = ShapeButton.medium)
     }
 }

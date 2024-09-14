@@ -53,7 +53,6 @@ fun CustomSnackBar(
             iconColor = Color.White
         }
         SnackBarStatus.NONE -> {
-            // Nenhum estado de Snackbar a exibir
             return
         }
     }

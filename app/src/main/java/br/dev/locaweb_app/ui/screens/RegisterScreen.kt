@@ -97,7 +97,6 @@ fun RegisterScreen(
             placeholder = "Insira seu nome:",
             icon = Icons.Filled.Person,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             capitalization = KeyboardCapitalization.Words,
             isError = isErrorName
         )
@@ -110,7 +109,6 @@ fun RegisterScreen(
             placeholder = "Insira seu email:",
             icon = Icons.Filled.Email,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             keyboard = KeyboardType.Email,
             isError = isErrorEmail
         )
@@ -123,7 +121,6 @@ fun RegisterScreen(
             placeholder = "Insira seu username:",
             icon = Icons.Filled.AccountCircle,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             isError = isErrorUsername
         )
         if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
@@ -137,7 +134,6 @@ fun RegisterScreen(
             keyboard = KeyboardType.Password,
             isPassword = true,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             isError = isErrorPassword || passwordsMatchError
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
@@ -151,7 +147,6 @@ fun RegisterScreen(
             keyboard = KeyboardType.Password,
             isPassword = true,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             isError = isErrorCheckPassword || passwordsMatchError
         )
         if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
@@ -199,7 +194,6 @@ fun RegisterScreen(
             },
             colorsList = ButtonColors,
             text = "Register",
-            cornerShape = ShapeButton.medium
         )
     }
 }

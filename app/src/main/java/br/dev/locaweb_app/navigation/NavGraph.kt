@@ -63,7 +63,8 @@ fun NavGraph(
                 snackBarHostState = snackBarHostState,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
-                userViewModel = userViewModel
+                userViewModel = userViewModel,
+                themeViewModel = themeViewModel
             )
         }
         composable(route = "settings") {
@@ -73,7 +74,6 @@ fun NavGraph(
         }
         composable(route = "theme") {
             ThemeScreen(
-                navController = navController,
                 viewModel = themeViewModel
             )
         }

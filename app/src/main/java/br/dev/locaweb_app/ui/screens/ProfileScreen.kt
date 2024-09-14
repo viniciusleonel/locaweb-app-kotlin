@@ -20,7 +20,6 @@ fun ProfileScreen(
         onClick = {
             navController?.navigate("edit-profile")
         },
-        cornerShape = ShapeButton.medium,
         colorsList = ButtonColors,
         text = "Edit Profile"
     )

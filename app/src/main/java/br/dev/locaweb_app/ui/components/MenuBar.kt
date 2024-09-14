@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.dev.locaweb_app.ui.theme.Blue
@@ -26,6 +26,9 @@ fun MenuBar(
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val themeViewModel: ThemeViewModel = viewModel()
+    val isDarkTheme = themeViewModel.isDarkTheme.value
+    val regularColor = if (isDarkTheme) Color.White else Color.Black
 
     if (currentRoute != "login" && currentRoute != "register") {
         Row(
@@ -39,7 +42,7 @@ fun MenuBar(
                 icon = Icons.Filled.Email,
                 text = "Emails",
                 modifier = Modifier.weight(1f),
-                color = if (currentRoute == "emails") Blue else Color.Black,
+                color = if (currentRoute == "emails") Blue else regularColor,
                 onClick = {
                     navController.navigate("emails")
                 }
@@ -47,8 +50,8 @@ fun MenuBar(
             MenuItem(
                 icon = Icons.Filled.Settings,
                 text = "Settings",
-                modifier = Modifier.weight(1f), // Faz com que o MenuItem ocupe toda a largura disponível
-                color = if (currentRoute == "settings") Blue else Color.Black,
+                modifier = Modifier.weight(1f),
+                color = if (currentRoute == "settings") Blue else regularColor,
                 onClick = {
                     navController.navigate("settings")
                 }
@@ -59,7 +62,7 @@ fun MenuBar(
 //                text = "Profile",
 //                modifier = Modifier
 //                    .weight(1f),
-//                color = if (currentRoute == "profile") Blue else Color.Black,
+//                color = if (currentRoute == "profile") Blue else regularColor,
 //                onClick = {
 //                    navController.navigate("profile")
 //                }

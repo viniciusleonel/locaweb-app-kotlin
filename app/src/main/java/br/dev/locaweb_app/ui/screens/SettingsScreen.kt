@@ -28,7 +28,6 @@ fun SettingsScreen(
             onClick = {
                 navController.navigate("edit-profile")
             },
-            cornerShape = ShapeButton.medium,
             colorsList = ButtonColors,
             text = "Edit Profile"
         )
@@ -37,7 +36,6 @@ fun SettingsScreen(
             onClick = {
                 navController.navigate("theme")
             },
-            cornerShape = ShapeButton.medium,
             colorsList = ButtonColors,
             text = "Change Theme"
         )

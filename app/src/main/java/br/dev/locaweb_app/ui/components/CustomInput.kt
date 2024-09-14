@@ -1,12 +1,9 @@
 package br.dev.locaweb_app.ui.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -24,9 +21,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.dev.locaweb_app.ui.theme.ShapeButton
+import br.dev.locaweb_app.ui.theme.OceanBlue
+import br.dev.locaweb_app.ui.theme.RegularShape
 
 @Composable
 fun CustomInput(
@@ -44,8 +41,14 @@ fun CustomInput(
     capitalization: KeyboardCapitalization = KeyboardCapitalization.None,
     isPassword: Boolean = false,
     isError: Boolean = false,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    themeViewModel: ThemeViewModel? = null
 ) {
+
+    val isDarkTheme = themeViewModel?.isDarkTheme?.value
+    val textRegularColor = if (isDarkTheme == true) Color.White else Color.Black
+    val borderRegularColor = if (isDarkTheme == true) Color.Blue else OceanBlue
+    val iconFocusColor = if (isDarkTheme == true) Color.Blue else OceanBlue
 
     var text by remember {
         mutableStateOf(textInput)
@@ -67,12 +70,17 @@ fun CustomInput(
         },
         placeholder = {
             placeholder?.let {
-                Text(text = it)
+                Text(
+                    text = it,
+                )
             }
         },
         leadingIcon = {
             icon?.let {
-                Icon(imageVector = icon, contentDescription = iconDescription)
+                Icon(
+                    imageVector = icon,
+                    contentDescription = iconDescription
+                )
             }
         },
         keyboardOptions = KeyboardOptions.Default.copy(
@@ -80,59 +88,23 @@ fun CustomInput(
             capitalization = capitalization
         ),
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
-        textStyle = textStyle ?: TextStyle(Color.Black),
+        textStyle = textStyle ?: TextStyle(),
         colors = TextFieldDefaults.colors(
             focusedLabelColor = color ?: Color.Black,
-            focusedIndicatorColor = color ?: Color.Black,
-            focusedLeadingIconColor = color ?: Color.Black,
+            focusedTextColor = if (isDarkTheme == true) Color.White else Color.Black,
+            focusedIndicatorColor = color ?: borderRegularColor,
+            focusedLeadingIconColor = color ?: iconFocusColor,
             focusedPlaceholderColor = Color.Gray,
-            focusedContainerColor = Color.Transparent,
+            focusedContainerColor =  Color.Transparent,
             unfocusedContainerColor = Color.Transparent,
             errorContainerColor = Color.Transparent,
             disabledContainerColor = Color(0xFFB7BDE7),
-            disabledTextColor = Color.Gray
+            disabledTextColor = Color.Gray,
+            disabledLeadingIconColor =  Color.Gray
         ),
         singleLine = true,
-        shape = cornerShape ?: ShapeButton.small,
+        shape = cornerShape ?: RegularShape,
         isError = isError,
         enabled = enabled
     )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun CustomInputPrev() {
-    Column {
-        CustomInput(
-            textStyle = TextStyle(Color.Blue),
-            textInput = "",
-            onValueChange = {},
-            label = "Insert your username:",
-            icon = Icons.Filled.Person,
-            capitalization = KeyboardCapitalization.Words,
-        )
-        CustomInput(
-            textInput = "",
-            onValueChange = {},
-            textStyle = TextStyle(Color.Blue),
-            label = "Email",
-            keyboard = KeyboardType.Email,
-            capitalization = KeyboardCapitalization.None,
-        )
-        CustomInput(
-            textInput = "",
-            onValueChange = {},
-            textStyle = TextStyle(Color.Blue),
-            label = "Numbers",
-            keyboard = KeyboardType.Number,
-        )
-        CustomInput(
-            textInput = "",
-            onValueChange = {},
-            textStyle = TextStyle(Color.Blue),
-            label = "Insert your password:",
-            keyboard = KeyboardType.Password,
-            capitalization = KeyboardCapitalization.None,
-        )
-    }
 }

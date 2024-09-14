@@ -66,7 +66,6 @@ fun LoginScreen(
             placeholder = "Insira seu username:",
             icon = Icons.Filled.Person,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             isError = isErrorUsername
         )
         if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
@@ -81,7 +80,6 @@ fun LoginScreen(
             keyboard = KeyboardType.Password,
             isPassword = true,
             color = OceanBlue,
-            cornerShape = ShapeButton.medium,
             isError = isErrorPassword
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
@@ -128,14 +126,12 @@ fun LoginScreen(
             },
             colorsList = ButtonColors,
             text = "Login",
-            cornerShape = ShapeButton.medium
         )
         Spacer(modifier = Modifier.height(15.dp))
         CustomButton(
             onClick = { navController?.navigate("register") },
             colorsList = ButtonColors,
             text = "Register",
-            cornerShape = ShapeButton.medium
         )
     }
 }

@@ -38,10 +38,9 @@ import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.DeleteDialog
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
-import br.dev.locaweb_app.ui.theme.OceanBlue
-import br.dev.locaweb_app.ui.theme.ShapeButton
 import br.dev.locaweb_app.ui.theme.Typography
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -54,6 +53,7 @@ fun EditProfileScreen(
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
     userViewModel: UserViewModel,
+    themeViewModel: ThemeViewModel
 ) {
     val user = userViewModel.userLoginResponse.value
     var name by remember { mutableStateOf(user?.name ?: "") }
@@ -61,9 +61,6 @@ fun EditProfileScreen(
     var email by remember { mutableStateOf(user?.email ?: "") }
     var password by remember { mutableStateOf("") }
     var checkPassword by remember { mutableStateOf("") }
-    var isErrorName by remember { mutableStateOf(false) }
-    var isErrorEmail by remember { mutableStateOf(false) }
-    var isErrorUsername by remember { mutableStateOf(false) }
     var isErrorPassword by remember { mutableStateOf(false) }
     var isErrorCheckPassword by remember { mutableStateOf(false) }
     var passwordsMatchError by remember { mutableStateOf(false) }
@@ -76,9 +73,6 @@ fun EditProfileScreen(
     var showDialog by remember { mutableStateOf(false) }
 
     fun clearErrors() {
-        isErrorName = false
-        isErrorEmail = false
-        isErrorUsername = false
         isErrorPassword = false
         isErrorCheckPassword = false
         passwordsMatchError = false
@@ -133,13 +127,10 @@ fun EditProfileScreen(
                     textInput = name,
                     onValueChange = { name = it },
                     icon = Icons.Filled.Person,
-                    color = OceanBlue,
                     capitalization = KeyboardCapitalization.Words,
-                    cornerShape = ShapeButton.medium,
-                    isError = isErrorName,
-                    enabled = isEditing // Only editable if `isEditing` is true
+                    enabled = isEditing,
+                    themeViewModel = themeViewModel
                 )
-                if (isErrorName) ErrorMessage(text = "Name é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
@@ -151,13 +142,10 @@ fun EditProfileScreen(
                     textInput = email,
                     onValueChange = { email = it },
                     icon = Icons.Filled.Email,
-                    color = OceanBlue,
                     keyboard = KeyboardType.Email,
-                    cornerShape = ShapeButton.medium,
-                    isError = isErrorEmail,
-                    enabled = isEditing
+                    enabled = isEditing,
+                    themeViewModel = themeViewModel
                 )
-                if (isErrorEmail) ErrorMessage(text = "Email é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
@@ -169,12 +157,9 @@ fun EditProfileScreen(
                     textInput = username,
                     onValueChange = { username = it },
                     icon = Icons.Filled.AccountCircle,
-                    color = OceanBlue,
-                    cornerShape = ShapeButton.medium,
-                    isError = isErrorUsername,
-                    enabled = isEditing
+                    enabled = isEditing,
+                    themeViewModel = themeViewModel
                 )
-                if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
@@ -187,13 +172,11 @@ fun EditProfileScreen(
                     onValueChange = { password = it },
                     icon = Icons.Filled.Lock,
                     keyboard = KeyboardType.Password,
-                    color = OceanBlue,
-                    cornerShape = ShapeButton.medium,
                     isPassword = true,
                     isError = isErrorPassword || passwordsMatchError,
-                    enabled = isEditing
+                    enabled = isEditing,
+                    themeViewModel = themeViewModel
                 )
-                if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
@@ -207,10 +190,9 @@ fun EditProfileScreen(
                     icon = Icons.Filled.Lock,
                     keyboard = KeyboardType.Password,
                     isPassword = true,
-                    color = OceanBlue,
-                    cornerShape = ShapeButton.medium,
                     isError = isErrorCheckPassword || passwordsMatchError,
-                    enabled = isEditing
+                    enabled = isEditing,
+                    themeViewModel = themeViewModel
                 )
                 if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
                 if (passwordsMatchError) ErrorMessage(text = "As senhas precisam ser iguais!")
@@ -248,7 +230,7 @@ fun EditProfileScreen(
                                             scope.launch {
                                                 snackBarHostState.showSnackbar(
                                                     message = errorMessage.toString(),
-                                                    duration = SnackbarDuration.Short
+                                                    duration = SnackbarDuration.Long
                                                 )
                                             }
                                             if (errorMessage.equals("Login expired!"))
@@ -267,7 +249,6 @@ fun EditProfileScreen(
                             }
 
                         },
-                        cornerShape = ShapeButton.medium,
                         colorsList = ButtonColors,
                         text = "Save Changes"
                     )
@@ -283,7 +264,6 @@ fun EditProfileScreen(
                             }
                             isEditing = false
                         },
-                        cornerShape = ShapeButton.medium,
                         colorsList = ButtonColorsWarning,
                         text = "Cancel Changes"
                     )
@@ -292,7 +272,6 @@ fun EditProfileScreen(
                         onClick = {
                             isEditing = true
                         },
-                        cornerShape = ShapeButton.medium,
                         colorsList = ButtonColors,
                         text = "Edit Profile"
                     )
@@ -301,7 +280,6 @@ fun EditProfileScreen(
                         onClick = {
                             showDialog = true
                         },
-                        cornerShape = ShapeButton.medium,
                         colorsList = ButtonColorsWarning,
                         text = "Delete Account"
                     )

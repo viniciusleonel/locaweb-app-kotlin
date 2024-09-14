@@ -26,7 +26,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun MainScreen(
     snackBarViewModel: SnackBarViewModel = viewModel(),
-    themeViewModel: ThemeViewModel = viewModel() // Receba o ViewModel do tema aqui
+    themeViewModel: ThemeViewModel = viewModel()
 
 ) {
     val navController = rememberNavController()
@@ -55,7 +55,6 @@ fun MainScreen(
             val systemUiController = rememberSystemUiController()
             systemUiController.setStatusBarColor(color = NavColor)
 
-            // Navegação principal
             NavGraph(
                 navController = navController,
                 snackBarHostState = snackBarHostState,
