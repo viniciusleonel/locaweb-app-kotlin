@@ -27,12 +27,14 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun NavBar(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    viewModel: ThemeViewModel
 ) {
     val systemUiController = rememberSystemUiController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val navBarColor = viewModel.navBarColor.value
 
     if (currentRoute != "login" && currentRoute != "register") {
 
@@ -41,10 +43,10 @@ fun NavBar(
         )
 
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(70.dp)
-                .background(color = NavColor),
+                .background(color = navBarColor),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -74,7 +76,7 @@ fun NavBar(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "",
-                tint = NavColor,
+                tint = navBarColor,
                 modifier = Modifier
                     .padding(end = 16.dp)
 

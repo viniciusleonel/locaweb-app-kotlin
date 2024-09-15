@@ -14,6 +14,10 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +34,8 @@ fun ThemeScreen(
     viewModel: ThemeViewModel
 ) {
     val isDarkTheme = viewModel.isDarkTheme.value
+    val navBarColor = viewModel.navBarColor.value
+    var selectedColor by remember { mutableStateOf(Color.Gray) }
 
     Column(
         modifier = modifier
@@ -72,7 +78,7 @@ fun ThemeScreen(
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        ShowColorPicker()
+        ShowColorPicker(viewModel)
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(
             thickness = 1.dp,

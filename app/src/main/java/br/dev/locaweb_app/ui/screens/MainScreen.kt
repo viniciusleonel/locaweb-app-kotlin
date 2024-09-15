@@ -34,7 +34,7 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = { NavBar(navController = navController) },
+        topBar = { NavBar(navController = navController, viewModel = themeViewModel) },
         snackbarHost = {
             SnackbarHost(hostState = snackBarHostState) {
                 CustomSnackBar(
@@ -43,7 +43,7 @@ fun MainScreen(
                 )
             }
         },
-        bottomBar = { MenuBar(navController = navController) }
+        bottomBar = { MenuBar(navController = navController, viewModel = themeViewModel) }
     ) { innerPadding ->
         Column(
             modifier = Modifier

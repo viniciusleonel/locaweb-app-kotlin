@@ -21,7 +21,8 @@ import br.dev.locaweb_app.ui.theme.Blue
 @Composable
 fun MenuBar(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: ThemeViewModel
 ) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -29,12 +30,13 @@ fun MenuBar(
     val themeViewModel: ThemeViewModel = viewModel()
     val isDarkTheme = themeViewModel.isDarkTheme.value
     val regularColor = if (isDarkTheme) Color.White else Color.Black
+    val navBarColor = viewModel.navBarColor.value
 
     if (currentRoute != "login" && currentRoute != "register") {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(70.dp)
         ) {
@@ -42,7 +44,7 @@ fun MenuBar(
                 icon = Icons.Filled.Email,
                 text = "Emails",
                 modifier = Modifier.weight(1f),
-                color = if (currentRoute == "emails") Blue else regularColor,
+                color = if (currentRoute == "emails") navBarColor else regularColor,
                 onClick = {
                     navController.navigate("emails")
                 }
@@ -51,7 +53,7 @@ fun MenuBar(
                 icon = Icons.Filled.Settings,
                 text = "Settings",
                 modifier = Modifier.weight(1f),
-                color = if (currentRoute == "settings") Blue else regularColor,
+                color = if (currentRoute == "settings") navBarColor else regularColor,
                 onClick = {
                     navController.navigate("settings")
                 }

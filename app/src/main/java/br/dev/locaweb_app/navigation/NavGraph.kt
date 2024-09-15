@@ -28,7 +28,7 @@ fun NavGraph(
     snackBarStatus: SnackBarStatus,
     scope: CoroutineScope,
     themeViewModel: ThemeViewModel,
-    startDestination: String = "settings"
+    startDestination: String = "login"
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "login") {

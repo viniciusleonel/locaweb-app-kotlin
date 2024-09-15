@@ -32,9 +32,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import br.dev.locaweb_app.ui.theme.ButtonColors
+import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 
 @Composable
-fun ShowColorPicker() {
+fun ShowColorPicker(viewModel: ThemeViewModel) {
     var showDialog by remember { mutableStateOf(false) }
 
     // Botão para abrir o dialog
@@ -44,20 +45,24 @@ fun ShowColorPicker() {
         colorsList = ButtonColors
     )
 
-    // Mostrar o dialog quando showDialog for verdadeiro
     if (showDialog) {
-        ColorPickerDialog(onDismiss = { showDialog = false })
+        ColorPickerDialog(
+            onDismiss = { showDialog = false },
+            viewModel = viewModel
+        )
     }
 }
 
 
 @Composable
-fun ColorPickerDialog(onDismiss: () -> Unit) {
+fun ColorPickerDialog(
+    viewModel: ThemeViewModel,
+    onDismiss: () -> Unit
+) {
     var hue by remember { mutableStateOf(0f) }  // Valor da tonalidade
     var saturation by remember { mutableStateOf(1f) }  // Saturação
     var brightness by remember { mutableStateOf(1f) }  // Brilho
 
-    // Converter HSB para RGB
     val color = Color.hsv(hue, saturation, brightness)
 
     Dialog(onDismissRequest = onDismiss) {
@@ -66,13 +71,12 @@ fun ColorPickerDialog(onDismiss: () -> Unit) {
             tonalElevation = 4.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(10.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                // Quadrado de seleção de saturação e brilho
                 SaturationBrightnessPicker(
                     hue = hue,
                     saturation = saturation,
@@ -81,8 +85,6 @@ fun ColorPickerDialog(onDismiss: () -> Unit) {
                     saturation = s
                     brightness = b
                 }
-
-                // Seletor de tonalidade
                 HueSlider(hue = hue) { hueSelected ->
                     hue = hueSelected
                 }
@@ -90,17 +92,25 @@ fun ColorPickerDialog(onDismiss: () -> Unit) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp) // Largura e altura iguais para formar um círculo
-                        .clip(RectangleShape) // Deixa o Box em formato de círculo
-                        .background(color) // Aplica a cor selecionada
+                        .height(50.dp)
+                        .clip(RectangleShape)
+                        .background(color)
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
-                // Botão para fechar o dialog
+                CustomButton(
+                    onClick = {
+                        viewModel.updateColor(color)
+                        onDismiss()
+                    },
+                    text = "Save Color",
+                    colorsList = ButtonColors,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+
                 CustomButton(
                     onClick = { onDismiss() },
                     text = "Close",
-                    colorsList = ButtonColors,
+                    colorsList = ButtonColorsWarning,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -161,7 +171,6 @@ fun SaturationBrightnessPicker(
             val colorStart = Color.White
             val colorEnd = Color.hsv(hue, 1f, 1f)
 
-            // Gradiente horizontal (da esquerda para a direita, branco -> cor)
             drawRect(
                 brush = Brush.horizontalGradient(
                     colors = listOf(colorStart, colorEnd),
@@ -170,7 +179,6 @@ fun SaturationBrightnessPicker(
                 )
             )
 
-            // Gradiente vertical (do topo claro/transparente para o fundo escuro)
             drawRect(
                 brush = Brush.verticalGradient(
                     colors = listOf(Color.Transparent, Color.Black),
@@ -180,15 +188,14 @@ fun SaturationBrightnessPicker(
                 size = Size(size.width, size.height)
             )
 
-            // Desenhar o círculo indicador com borda branca e fundo transparente
             drawCircle(
-                color = Color.Transparent,  // Cor de preenchimento transparente
+                color = Color.Transparent,
                 radius = 10.dp.toPx(),
                 center = touchOffset,
                 style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round) // Borda branca
             )
             drawCircle(
-                color = Color.White,  // Cor da borda
+                color = Color.White,
                 radius = 12.dp.toPx(),
                 center = touchOffset,
                 style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round) // Borda branca

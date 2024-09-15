@@ -46,9 +46,8 @@ fun CustomInput(
 ) {
 
     val isDarkTheme = themeViewModel?.isDarkTheme?.value
-    val textRegularColor = if (isDarkTheme == true) Color.White else Color.Black
-    val borderRegularColor = if (isDarkTheme == true) Color.Blue else OceanBlue
-    val iconFocusColor = if (isDarkTheme == true) Color.Blue else OceanBlue
+    val usersColor = themeViewModel?.navBarColor?.value ?: OceanBlue
+
 
     var text by remember {
         mutableStateOf(textInput)
@@ -92,15 +91,15 @@ fun CustomInput(
         colors = TextFieldDefaults.colors(
             focusedLabelColor = color ?: Color.Black,
             focusedTextColor = if (isDarkTheme == true) Color.White else Color.Black,
-            focusedIndicatorColor = color ?: borderRegularColor,
-            focusedLeadingIconColor = color ?: iconFocusColor,
+            focusedIndicatorColor = color ?: usersColor,
+            focusedLeadingIconColor = color ?: usersColor,
             focusedPlaceholderColor = Color.Gray,
-            focusedContainerColor =  Color.Transparent,
+            focusedContainerColor = Color.Transparent,
             unfocusedContainerColor = Color.Transparent,
             errorContainerColor = Color.Transparent,
             disabledContainerColor = Color(0xFFB7BDE7),
             disabledTextColor = Color.Gray,
-            disabledLeadingIconColor =  Color.Gray
+            disabledLeadingIconColor = Color.Gray
         ),
         singleLine = true,
         shape = cornerShape ?: RegularShape,

@@ -27,12 +27,12 @@ fun CustomButton(
     themeViewModel: ThemeViewModel? = null
 ) {
     val isDarkTheme = themeViewModel?.isDarkTheme?.value
+    val usersColor = themeViewModel?.navBarColor?.value ?: Color.Black
 
     val brush = when {
         colorsList != null -> Brush.horizontalGradient(colorsList)
         color != null -> Brush.linearGradient(listOf(color, color))
-        isDarkTheme == true -> Brush.linearGradient(listOf(Color.White, Color.White))
-        else -> Brush.linearGradient(listOf(Color.Black, Color.Black))
+        else -> Brush.linearGradient(listOf(usersColor, usersColor))
     }
 
     val textColor = if(isDarkTheme == true && colorsList == null && color == null) Color.Black else Color.White
