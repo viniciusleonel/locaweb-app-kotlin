@@ -5,18 +5,29 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.ui.components.CustomButton
+import br.dev.locaweb_app.ui.components.ThemeViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    buttonColors: List<Color>? = null
+    buttonColors: List<Color>? = null,
+    themeViewModel: ThemeViewModel,
 ) {
+
+    val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
 
     Column {
         CustomButton(

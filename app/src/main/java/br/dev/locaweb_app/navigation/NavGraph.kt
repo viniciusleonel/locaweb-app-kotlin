@@ -78,19 +78,21 @@ fun NavGraph(
         composable(route = "settings") {
             SettingsScreen(
                 navController = navController,
-                buttonColors = buttonColors
+                buttonColors = buttonColors,
+                themeViewModel = themeViewModel,
             )
         }
         composable(route = "theme") {
             ThemeScreen(
-                viewModel = themeViewModel,
+                themeViewModel = themeViewModel,
                 buttonColors = buttonColors
             )
         }
         composable(route = "emails") {
             EmailsScreen(
                 navController = navController,
-                buttonColors = buttonColors
+                buttonColors = buttonColors,
+                themeViewModel = themeViewModel,
             )
         }
     }

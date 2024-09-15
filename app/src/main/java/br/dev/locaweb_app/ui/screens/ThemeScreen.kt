@@ -14,6 +14,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,15 +24,22 @@ import androidx.compose.ui.unit.sp
 import br.dev.locaweb_app.ui.components.ShowColorPicker
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.darkenColor
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun ThemeScreen(
     modifier: Modifier = Modifier,
-    viewModel: ThemeViewModel,
+    themeViewModel: ThemeViewModel,
     buttonColors: List<Color>? = null
 ) {
-    val isDarkTheme = viewModel.isDarkTheme.value
-    val usersColor = viewModel.navBarColor.value
+    val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
+
+    val isDarkTheme = themeViewModel.isDarkTheme.value
     val darkNavBarColor = darkenColor(usersColor, 0.4f)
 
     Column(
@@ -59,7 +67,7 @@ fun ThemeScreen(
 
             Switch(
                 checked = isDarkTheme,
-                onCheckedChange = { viewModel.toggleTheme() },
+                onCheckedChange = { themeViewModel.toggleTheme() },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor =  usersColor,
                     checkedTrackColor = darkNavBarColor,
@@ -75,7 +83,7 @@ fun ThemeScreen(
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        ShowColorPicker(viewModel, buttonColors)
+        ShowColorPicker(themeViewModel, buttonColors)
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(
             thickness = 1.dp,

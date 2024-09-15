@@ -34,7 +34,7 @@ fun MainScreen(
     val usersColor = themeViewModel.navBarColor.value
 
     Scaffold(
-        topBar = { NavBar(navController = navController, viewModel = themeViewModel) },
+        topBar = { NavBar(navController = navController, themeViewModel = themeViewModel) },
         snackbarHost = {
             SnackbarHost(hostState = snackBarHostState) {
                 CustomSnackBar(

@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -43,6 +45,13 @@ fun RegisterScreen(
     themeViewModel: ThemeViewModel,
     buttonColors: List<Color>? = null
 ) {
+
+    val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
 
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -83,8 +92,6 @@ fun RegisterScreen(
         }
         return false
     }
-
-    val scrollState = rememberScrollState()
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -193,7 +200,8 @@ fun RegisterScreen(
                     }
                 }
             },
-            text = "Register"
+            text = "Register",
+            colorsList = buttonColors
         )
     }
 }

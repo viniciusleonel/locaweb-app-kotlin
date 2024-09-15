@@ -17,6 +17,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +43,7 @@ import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 import br.dev.locaweb_app.ui.theme.Typography
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -56,6 +58,13 @@ fun EditProfileScreen(
     themeViewModel: ThemeViewModel,
     buttonColors: List<Color>? = null
 ) {
+    val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
+
     val user = userViewModel.userLoginResponse.value
     var name by remember { mutableStateOf(user?.name ?: "") }
     var username by remember { mutableStateOf(user?.username ?: "") }

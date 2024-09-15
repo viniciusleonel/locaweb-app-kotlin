@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -47,6 +49,13 @@ fun LoginScreen(
     themeViewModel: ThemeViewModel,
     buttonColors: List<Color>? = null
 ) {
+
+    val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
 
     var loginResponse by remember {mutableStateOf(UserLoginResponse())}
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -129,11 +138,13 @@ fun LoginScreen(
 
             },
             text = "Login",
+            colorsList = buttonColors
         )
         Spacer(modifier = Modifier.height(15.dp))
         CustomButton(
             onClick = { navController?.navigate("register") },
             text = "Register",
+            colorsList = buttonColors
         )
     }
 }

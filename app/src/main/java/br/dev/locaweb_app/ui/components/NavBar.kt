@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,12 +29,16 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun NavBar(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    viewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel
 ) {
     val systemUiController = rememberSystemUiController()
+    val usersColor = themeViewModel.navBarColor.value
+
+    LaunchedEffect(usersColor) {
+        systemUiController.setStatusBarColor(color = usersColor)
+    }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val navBarColor = viewModel.navBarColor.value
 
     if (currentRoute != "login" && currentRoute != "register") {
 
@@ -45,7 +50,7 @@ fun NavBar(
             modifier = modifier
                 .fillMaxWidth()
                 .height(70.dp)
-                .background(color = navBarColor),
+                .background(color = usersColor),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -75,7 +80,7 @@ fun NavBar(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "",
-                tint = navBarColor,
+                tint = usersColor,
                 modifier = Modifier
                     .padding(end = 16.dp)
 
