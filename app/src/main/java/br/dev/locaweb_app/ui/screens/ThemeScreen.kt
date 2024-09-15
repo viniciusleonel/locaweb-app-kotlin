@@ -91,52 +91,57 @@ fun ThemeScreen(
         modifier = modifier
             .padding(20.dp)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.SpaceBetween, // Garante que o botão fique no final
     ) {
-        Text(
-            text = "Choose your theme:",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Column {
             Text(
-                text = "Current theme: " + if (isDarkTheme) "Dark" else "Light",
-                fontSize = 18.sp,
+                text = "Choose your theme:",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
             )
+            Spacer(modifier = Modifier.height(8.dp))
 
-            Switch(
-                checked = isDarkTheme,
-                onCheckedChange = { themeViewModel.toggleTheme() },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = usersColor,
-                    checkedTrackColor = darkNavBarColor,
-                    uncheckedTrackColor = Color.LightGray,
-                    uncheckedThumbColor = darkNavBarColor,
-                    uncheckedBorderColor = Color.Gray
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Current theme: " + if (isDarkTheme) "Dark" else "Light",
+                    fontSize = 18.sp,
                 )
+
+                Switch(
+                    checked = isDarkTheme,
+                    onCheckedChange = { themeViewModel.toggleTheme() },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = usersColor,
+                        checkedTrackColor = darkNavBarColor,
+                        uncheckedTrackColor = Color.LightGray,
+                        uncheckedThumbColor = darkNavBarColor,
+                        uncheckedBorderColor = Color.Gray
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.padding(0.dp, 5.dp))
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            ShowColorPicker(themeViewModel, buttonColors)
+            Spacer(modifier = Modifier.height(16.dp))
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.padding(0.dp, 5.dp))
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        ShowColorPicker(themeViewModel, buttonColors)
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+
         CustomButton(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally),
             onClick = {
                 val userPreferences =
                     userPreferencesId?.let { setUpPreferences(if (isDarkTheme) "Dark" else "Light", usersColor.toString(), categories, labels, it) }
