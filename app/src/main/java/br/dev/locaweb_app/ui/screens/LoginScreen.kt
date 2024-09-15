@@ -28,6 +28,7 @@ import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
@@ -42,6 +43,7 @@ fun LoginScreen(
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
     userViewModel: UserViewModel,
+    themeViewModel: ThemeViewModel
 ) {
 
     var loginResponse by remember {mutableStateOf(UserLoginResponse())}
@@ -65,7 +67,7 @@ fun LoginScreen(
             label = "Insert your username:",
             placeholder = "Insira seu username:",
             icon = Icons.Filled.Person,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             isError = isErrorUsername
         )
         if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
@@ -79,7 +81,7 @@ fun LoginScreen(
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             isError = isErrorPassword
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")

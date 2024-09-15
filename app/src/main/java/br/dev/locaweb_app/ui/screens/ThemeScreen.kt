@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.dev.locaweb_app.ui.components.ShowColorPicker
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.OceanBlue
 
@@ -59,9 +60,9 @@ fun ThemeScreen(
                 colors = SwitchDefaults.colors(
                     checkedThumbColor =  Color.Blue,
                     checkedTrackColor = OceanBlue,
-                    uncheckedTrackColor = Color.Gray,
+                    uncheckedTrackColor = Color.LightGray,
                     uncheckedThumbColor = OceanBlue,
-                    uncheckedBorderColor = Color.Black
+                    uncheckedBorderColor = Color.Gray
                 )
             )
         }
@@ -70,7 +71,13 @@ fun ThemeScreen(
             thickness = 1.dp,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        ShowColorPicker()
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
-
-

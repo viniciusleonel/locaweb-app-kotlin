@@ -28,6 +28,7 @@ import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.ShapeButton
@@ -40,7 +41,8 @@ fun RegisterScreen(
     navController: NavController? = null,
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    themeViewModel: ThemeViewModel
 ) {
 
     var name by remember { mutableStateOf("") }
@@ -96,7 +98,7 @@ fun RegisterScreen(
             label = "Insert your name:",
             placeholder = "Insira seu nome:",
             icon = Icons.Filled.Person,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             capitalization = KeyboardCapitalization.Words,
             isError = isErrorName
         )
@@ -108,7 +110,7 @@ fun RegisterScreen(
             label = "Insert your email:",
             placeholder = "Insira seu email:",
             icon = Icons.Filled.Email,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             keyboard = KeyboardType.Email,
             isError = isErrorEmail
         )
@@ -120,7 +122,7 @@ fun RegisterScreen(
             label = "Insert your username:",
             placeholder = "Insira seu username:",
             icon = Icons.Filled.AccountCircle,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             isError = isErrorUsername
         )
         if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
@@ -133,7 +135,7 @@ fun RegisterScreen(
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             isError = isErrorPassword || passwordsMatchError
         )
         if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
@@ -146,7 +148,7 @@ fun RegisterScreen(
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
-            color = OceanBlue,
+            themeViewModel = themeViewModel,
             isError = isErrorCheckPassword || passwordsMatchError
         )
         if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
