@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -43,7 +44,8 @@ fun LoginScreen(
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
     userViewModel: UserViewModel,
-    themeViewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel,
+    buttonColors: List<Color>? = null
 ) {
 
     var loginResponse by remember {mutableStateOf(UserLoginResponse())}
@@ -126,13 +128,11 @@ fun LoginScreen(
                 }
 
             },
-            colorsList = ButtonColors,
             text = "Login",
         )
         Spacer(modifier = Modifier.height(15.dp))
         CustomButton(
             onClick = { navController?.navigate("register") },
-            colorsList = ButtonColors,
             text = "Register",
         )
     }

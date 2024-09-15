@@ -14,10 +14,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,16 +22,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.dev.locaweb_app.ui.components.ShowColorPicker
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.theme.OceanBlue
+import br.dev.locaweb_app.ui.theme.darkenColor
 
 @Composable
 fun ThemeScreen(
     modifier: Modifier = Modifier,
-    viewModel: ThemeViewModel
+    viewModel: ThemeViewModel,
+    buttonColors: List<Color>? = null
 ) {
     val isDarkTheme = viewModel.isDarkTheme.value
-    val navBarColor = viewModel.navBarColor.value
-    var selectedColor by remember { mutableStateOf(Color.Gray) }
+    val usersColor = viewModel.navBarColor.value
+    val darkNavBarColor = darkenColor(usersColor, 0.4f)
 
     Column(
         modifier = modifier
@@ -64,10 +61,10 @@ fun ThemeScreen(
                 checked = isDarkTheme,
                 onCheckedChange = { viewModel.toggleTheme() },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor =  Color.Blue,
-                    checkedTrackColor = OceanBlue,
+                    checkedThumbColor =  usersColor,
+                    checkedTrackColor = darkNavBarColor,
                     uncheckedTrackColor = Color.LightGray,
-                    uncheckedThumbColor = OceanBlue,
+                    uncheckedThumbColor = darkNavBarColor,
                     uncheckedBorderColor = Color.Gray
                 )
             )
@@ -78,7 +75,7 @@ fun ThemeScreen(
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        ShowColorPicker(viewModel)
+        ShowColorPicker(viewModel, buttonColors)
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(
             thickness = 1.dp,

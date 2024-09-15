@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import br.dev.locaweb_app.ui.theme.ButtonColors
+import androidx.compose.ui.graphics.Color
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 import br.dev.locaweb_app.ui.theme.ShapeButton
 
@@ -17,7 +17,8 @@ fun DeleteDialog(
     modifier: Modifier = Modifier,
     dialogState: Boolean,
     onDismissRequest: () -> Unit,
-    onConfirmRequest: () -> Unit
+    onConfirmRequest: () -> Unit,
+    buttonColors: List<Color>? = null
     ) {
 
     var showDialog by remember { mutableStateOf(dialogState) }
@@ -39,7 +40,7 @@ fun DeleteDialog(
                         onConfirmRequest()
                     },
                     cornerShape = ShapeButton.medium,
-                    colorsList = ButtonColors,
+                    colorsList = buttonColors,
                     text = "Confirm"
                 )
             },

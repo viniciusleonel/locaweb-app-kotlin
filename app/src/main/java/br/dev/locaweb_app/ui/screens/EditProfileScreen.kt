@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,6 @@ import br.dev.locaweb_app.ui.components.DeleteDialog
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 import br.dev.locaweb_app.ui.theme.Typography
 import kotlinx.coroutines.CoroutineScope
@@ -53,7 +53,8 @@ fun EditProfileScreen(
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
     userViewModel: UserViewModel,
-    themeViewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel,
+    buttonColors: List<Color>? = null
 ) {
     val user = userViewModel.userLoginResponse.value
     var name by remember { mutableStateOf(user?.name ?: "") }
@@ -249,8 +250,8 @@ fun EditProfileScreen(
                             }
 
                         },
-                        colorsList = ButtonColors,
-                        text = "Save Changes"
+                        text = "Save Changes",
+                        colorsList = buttonColors
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     CustomButton(
@@ -272,8 +273,8 @@ fun EditProfileScreen(
                         onClick = {
                             isEditing = true
                         },
-                        colorsList = ButtonColors,
-                        text = "Edit Profile"
+                        text = "Edit Profile",
+                        colorsList = buttonColors
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     CustomButton(
@@ -287,6 +288,7 @@ fun EditProfileScreen(
 
                 if (showDialog)
                     DeleteDialog(
+                        buttonColors = buttonColors,
                         dialogState = showDialog,
                         onConfirmRequest = {
 

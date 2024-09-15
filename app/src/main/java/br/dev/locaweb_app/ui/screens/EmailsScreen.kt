@@ -9,22 +9,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import br.dev.locaweb_app.ui.components.CustomButton
+import br.dev.locaweb_app.ui.components.ThemeViewModel
 
 
 @Composable
 fun EmailsScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
-    ) {
+    navController: NavController,
+    buttonColors: List<Color>? = null
+) {
     Column {
-        Button(
+        CustomButton(
             onClick = {
                 navController.navigate("profile")
             },
-            colors = ButtonDefaults.buttonColors(Color.Cyan),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Emails")
-        }
+            colorsList = buttonColors,
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            text = "Emails"
+        )
     }
 }

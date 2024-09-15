@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.dev.locaweb_app.ui.theme.OceanBlue
 import br.dev.locaweb_app.ui.theme.RegularShape
 
 @Composable
@@ -27,7 +28,7 @@ fun CustomButton(
     themeViewModel: ThemeViewModel? = null
 ) {
     val isDarkTheme = themeViewModel?.isDarkTheme?.value
-    val usersColor = themeViewModel?.navBarColor?.value ?: Color.Black
+    val usersColor = themeViewModel?.navBarColor?.value ?: OceanBlue
 
     val brush = when {
         colorsList != null -> Brush.horizontalGradient(colorsList)

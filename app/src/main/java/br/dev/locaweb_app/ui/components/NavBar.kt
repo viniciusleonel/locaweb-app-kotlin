@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.dev.locaweb_app.ui.theme.Blue
-import br.dev.locaweb_app.ui.theme.NavColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable

@@ -31,24 +31,22 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import br.dev.locaweb_app.ui.theme.ButtonColors
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 
 @Composable
-fun ShowColorPicker(viewModel: ThemeViewModel) {
+fun ShowColorPicker(viewModel: ThemeViewModel, buttonColors: List<Color>? = null) {
     var showDialog by remember { mutableStateOf(false) }
-
-    // Botão para abrir o dialog
     CustomButton(
         onClick = { showDialog = true },
         text = "Open Color Picker",
-        colorsList = ButtonColors
+        colorsList = buttonColors
     )
 
     if (showDialog) {
         ColorPickerDialog(
             onDismiss = { showDialog = false },
-            viewModel = viewModel
+            viewModel = viewModel,
+            buttonColors = buttonColors
         )
     }
 }
@@ -57,7 +55,8 @@ fun ShowColorPicker(viewModel: ThemeViewModel) {
 @Composable
 fun ColorPickerDialog(
     viewModel: ThemeViewModel,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    buttonColors: List<Color>? = null
 ) {
     var hue by remember { mutableStateOf(0f) }  // Valor da tonalidade
     var saturation by remember { mutableStateOf(1f) }  // Saturação
@@ -103,7 +102,7 @@ fun ColorPickerDialog(
                         onDismiss()
                     },
                     text = "Save Color",
-                    colorsList = ButtonColors,
+                    colorsList = buttonColors,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -203,4 +202,3 @@ fun SaturationBrightnessPicker(
         }
     }
 }
-

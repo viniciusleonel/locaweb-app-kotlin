@@ -13,10 +13,10 @@ import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.screens.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
-import br.dev.locaweb_app.ui.screens.ProfileScreen
 import br.dev.locaweb_app.ui.screens.RegisterScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
 import br.dev.locaweb_app.ui.screens.ThemeScreen
+import br.dev.locaweb_app.ui.theme.darkenColor
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -31,6 +31,9 @@ fun NavGraph(
     startDestination: String = "login"
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
+        val usersColor = themeViewModel.navBarColor.value
+        val darkNavBarColor = darkenColor(usersColor, 0.4f)
+        val buttonColors = listOf(darkNavBarColor, usersColor, darkNavBarColor)
         composable(route = "login") {
             LoginScreen(
                 navController = navController,
@@ -38,7 +41,8 @@ fun NavGraph(
                 snackBarHostState = snackBarHostState,
                 scope = scope,
                 userViewModel = userViewModel,
-                themeViewModel = themeViewModel
+                themeViewModel = themeViewModel,
+                buttonColors = buttonColors
             )
         }
         composable(route = "register") {
@@ -47,18 +51,19 @@ fun NavGraph(
                 snackBarHostState = snackBarHostState,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
-                themeViewModel = themeViewModel
+                themeViewModel = themeViewModel,
+                buttonColors = buttonColors
             )
         }
-        composable(route = "profile") {
-            ProfileScreen(
-                navController = navController,
+//        composable(route = "profile") {
+//            ProfileScreen(
+//                navController = navController,
 //                snackBarHostState = snackBarHostState,
 //                snackBarViewModel = snackBarViewModel,
 //                scope = scope,
 //                userViewModel = userViewModel
-            )
-        }
+//            )
+//        }
         composable(route = "edit-profile") {
             EditProfileScreen(
                 navController = navController,
@@ -66,22 +71,26 @@ fun NavGraph(
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
                 userViewModel = userViewModel,
-                themeViewModel = themeViewModel
+                themeViewModel = themeViewModel,
+                buttonColors = buttonColors
             )
         }
         composable(route = "settings") {
             SettingsScreen(
-                navController = navController
+                navController = navController,
+                buttonColors = buttonColors
             )
         }
         composable(route = "theme") {
             ThemeScreen(
-                viewModel = themeViewModel
+                viewModel = themeViewModel,
+                buttonColors = buttonColors
             )
         }
         composable(route = "emails") {
             EmailsScreen(
-                navController = navController
+                navController = navController,
+                buttonColors = buttonColors
             )
         }
     }

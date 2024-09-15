@@ -20,7 +20,6 @@ import br.dev.locaweb_app.ui.components.MenuBar
 import br.dev.locaweb_app.ui.components.NavBar
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.theme.NavColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -32,6 +31,7 @@ fun MainScreen(
     val navController = rememberNavController()
     val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val usersColor = themeViewModel.navBarColor.value
 
     Scaffold(
         topBar = { NavBar(navController = navController, viewModel = themeViewModel) },
@@ -53,7 +53,7 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val systemUiController = rememberSystemUiController()
-            systemUiController.setStatusBarColor(color = NavColor)
+            systemUiController.setStatusBarColor(color = usersColor)
 
             NavGraph(
                 navController = navController,
