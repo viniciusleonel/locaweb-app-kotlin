@@ -1,5 +1,6 @@
 package br.dev.locaweb_app.service
 
+import br.dev.locaweb_app.service.preferences.UserPreferencesService
 import br.dev.locaweb_app.service.user.UserService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,5 +17,9 @@ class RetrofitFactory {
 
     fun getUserService(): UserService {
         return retrofitFactory.create(UserService::class.java)
+    }
+
+    fun getPreferencesService() : UserPreferencesService {
+        return retrofitFactory.create(UserPreferencesService::class.java)
     }
 }

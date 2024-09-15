@@ -18,6 +18,7 @@ import retrofit2.http.Path
 interface UserService {
 
     // http://localhost:8080/api
+    // http://localhost:8080/api/user
     // http://localhost:8080/api/user/login
 
     @POST("user/login")

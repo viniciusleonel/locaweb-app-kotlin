@@ -84,8 +84,13 @@ fun NavGraph(
         }
         composable(route = "theme") {
             ThemeScreen(
+                userViewModel = userViewModel,
                 themeViewModel = themeViewModel,
-                buttonColors = buttonColors
+                navController = navController,
+                buttonColors = buttonColors,
+                snackBarHostState = snackBarHostState,
+                snackBarViewModel = snackBarViewModel,
+                scope = scope,
             )
         }
         composable(route = "emails") {
