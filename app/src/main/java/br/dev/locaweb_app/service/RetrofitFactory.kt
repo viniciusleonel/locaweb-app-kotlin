@@ -1,5 +1,6 @@
 package br.dev.locaweb_app.service
 
+import br.dev.locaweb_app.service.email.EmailService
 import br.dev.locaweb_app.service.preferences.UserPreferencesService
 import br.dev.locaweb_app.service.user.UserService
 import retrofit2.Retrofit
@@ -22,4 +23,9 @@ class RetrofitFactory {
     fun getPreferencesService() : UserPreferencesService {
         return retrofitFactory.create(UserPreferencesService::class.java)
     }
+
+    fun getEmailService() : EmailService {
+        return retrofitFactory.create(EmailService::class.java)
+    }
+
 }

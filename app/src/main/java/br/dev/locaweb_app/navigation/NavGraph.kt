@@ -98,6 +98,10 @@ fun NavGraph(
                 navController = navController,
                 buttonColors = buttonColors,
                 themeViewModel = themeViewModel,
+                userViewModel = userViewModel,
+                snackBarHostState = snackBarHostState,
+                snackBarViewModel = snackBarViewModel,
+                scope = scope,
             )
         }
     }

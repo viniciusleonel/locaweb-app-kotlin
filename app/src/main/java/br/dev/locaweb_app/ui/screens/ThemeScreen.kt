@@ -52,9 +52,9 @@ fun ThemeScreen(
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
 ) {
-    val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
+    val systemUiController = rememberSystemUiController()
     SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
@@ -145,6 +145,7 @@ fun ThemeScreen(
             onClick = {
                 val userPreferences =
                     userPreferencesId?.let { setUpPreferences(if (isDarkTheme) "Dark" else "Light", usersColor.toString(), categories, labels, it) }
+
                 if (userPreferences?.theme != null || userPreferences?.colorScheme != null || userPreferences?.categories != null || userPreferences?.labels != null) {
                     userPreferences.updatePreferences(userPreferencesId,
                         onSuccess = { response ->

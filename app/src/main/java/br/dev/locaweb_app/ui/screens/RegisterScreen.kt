@@ -37,11 +37,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
+
     navController: NavController? = null,
+
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
+
     themeViewModel: ThemeViewModel,
+
     buttonColors: List<Color>? = null
 ) {
 
@@ -164,7 +168,8 @@ fun RegisterScreen(
 
                 if (!formIsEmpty()) {
                     navController?.let {
-                        userRegister.register(onSuccess = { response ->
+                        userRegister.register(
+                            onSuccess = { response ->
                             userRegisterResponse = response
                             snackBarViewModel.showSuccessSnackbar()
                             scope.launch {
