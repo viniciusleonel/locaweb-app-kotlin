@@ -3,7 +3,6 @@ package br.dev.locaweb_app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
@@ -12,7 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,7 +48,7 @@ fun RegisterScreen(
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
-    LaunchedEffect(usersColor) {
+    SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
 

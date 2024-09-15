@@ -11,7 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,9 +31,6 @@ import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.theme.ButtonColors
-import br.dev.locaweb_app.ui.theme.OceanBlue
-import br.dev.locaweb_app.ui.theme.ShapeButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -53,16 +50,16 @@ fun LoginScreen(
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
-    LaunchedEffect(usersColor) {
+    SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
 
-    var loginResponse by remember {mutableStateOf(UserLoginResponse())}
+    var loginResponse by remember { mutableStateOf(UserLoginResponse()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    var username by remember {mutableStateOf("")}
-    var password by remember {mutableStateOf("")}
-    var isErrorUsername by remember {mutableStateOf(false)}
-    var isErrorPassword by remember {mutableStateOf(false) }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isErrorUsername by remember { mutableStateOf(false) }
+    var isErrorPassword by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier

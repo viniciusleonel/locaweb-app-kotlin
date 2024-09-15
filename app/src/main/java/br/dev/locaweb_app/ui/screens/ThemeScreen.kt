@@ -14,7 +14,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,7 +35,7 @@ fun ThemeScreen(
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
-    LaunchedEffect(usersColor) {
+    SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
 
@@ -69,7 +69,7 @@ fun ThemeScreen(
                 checked = isDarkTheme,
                 onCheckedChange = { themeViewModel.toggleTheme() },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor =  usersColor,
+                    checkedThumbColor = usersColor,
                     checkedTrackColor = darkNavBarColor,
                     uncheckedTrackColor = Color.LightGray,
                     uncheckedThumbColor = darkNavBarColor,

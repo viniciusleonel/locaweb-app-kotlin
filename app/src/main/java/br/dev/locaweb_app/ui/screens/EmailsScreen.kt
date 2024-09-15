@@ -1,11 +1,8 @@
 package br.dev.locaweb_app.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,7 +23,7 @@ fun EmailsScreen(
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
-    LaunchedEffect(usersColor) {
+    SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
 

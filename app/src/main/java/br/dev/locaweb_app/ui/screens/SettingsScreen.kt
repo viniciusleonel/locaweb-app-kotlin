@@ -1,12 +1,12 @@
 package br.dev.locaweb_app.ui.screens
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.ui.components.CustomButton
@@ -25,7 +25,7 @@ fun SettingsScreen(
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
 
-    LaunchedEffect(usersColor) {
+    SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
     }
 
