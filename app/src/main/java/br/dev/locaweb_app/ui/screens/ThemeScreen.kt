@@ -46,7 +46,7 @@ fun ThemeScreen(
     modifier: Modifier = Modifier,
     userViewModel: UserViewModel,
     themeViewModel: ThemeViewModel,
-    navController: NavController? = null,
+    navController: NavController,
     buttonColors: List<Color>? = null,
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
@@ -161,9 +161,8 @@ fun ThemeScreen(
                                     duration = SnackbarDuration.Long
                                 )
                             }
-                            if (errorMessage.equals("Login expired!"))
-                                navController?.navigate("login")
-                        }
+                        },
+                        navController = navController
                     )
                 }
             },

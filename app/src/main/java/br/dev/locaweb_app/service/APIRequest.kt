@@ -1,5 +1,6 @@
 package br.dev.locaweb_app.service
 
+import androidx.navigation.NavController
 import br.dev.locaweb_app.model.ErrorResponse
 import com.google.gson.Gson
 import retrofit2.Call
@@ -9,7 +10,8 @@ import retrofit2.Response
 inline fun <reified T> executeApiCall(
     call: Call<T>,
     crossinline onSuccess: (T) -> Unit,
-    crossinline onFailure: (String) -> Unit
+    crossinline onFailure: (String) -> Unit,
+    navController: NavController
 ) {
 
     call.enqueue(object : Callback<T> {
@@ -23,11 +25,15 @@ inline fun <reified T> executeApiCall(
                 }
             } else {
                 val errorBody = response.errorBody()?.string()
+                val statusCode = response.code()
                 val errorResponse = errorBody?.let {
                     Gson().fromJson(it, ErrorResponse::class.java)
                 }
                 val errorMessage = errorResponse?.error ?: errorResponse?.email
                 onFailure(errorMessage ?: "Unknown error occurred")
+                if (statusCode == 401 || errorMessage.equals("Login expired!")) {
+                    navController.navigate("login")
+                }
             }
         }
 
@@ -41,11 +47,13 @@ inline fun <reified T> executeApiCall(
 inline fun <reified T> handleApiCall(
     call: Call<T>,
     crossinline onSuccess: (T) -> Unit,
-    crossinline onFailure: (String) -> Unit
+    crossinline onFailure: (String) -> Unit,
+    navController: NavController
 ) {
     executeApiCall(
         call,
         onSuccess = { response -> onSuccess(response) },
-        onFailure = { error -> onFailure(error) }
+        onFailure = { error -> onFailure(error) },
+        navController = navController
     )
 }

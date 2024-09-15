@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun EditProfileScreen(
     modifier: Modifier = Modifier,
-    navController: NavController? = null,
+    navController: NavController,
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
@@ -243,9 +243,8 @@ fun EditProfileScreen(
                                                     duration = SnackbarDuration.Long
                                                 )
                                             }
-                                            if (errorMessage.equals("Login expired!"))
-                                                navController?.navigate("login")
-                                        }
+                                        },
+                                        navController = navController
                                     )
                                 } else {
                                     snackBarViewModel.showRegularSnackbar()
@@ -324,9 +323,8 @@ fun EditProfileScreen(
                                         )
                                     }
                                     showDialog = false
-                                    if (errorMessage.equals("Login expired!"))
-                                        navController?.navigate("login")
-                                }
+                                },
+                                navController = navController
                             )
                         },
                         onDismissRequest = { showDialog = false }

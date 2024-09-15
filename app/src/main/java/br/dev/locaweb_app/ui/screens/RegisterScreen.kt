@@ -184,9 +184,8 @@ fun RegisterScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
-                                if (errorMessage.equals("Login expired!"))
-                                    navController.navigate("login")
-                            }
+                            },
+                            navController = navController
                         )
                     }
                 } else {
