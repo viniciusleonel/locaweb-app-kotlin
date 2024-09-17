@@ -1,6 +1,7 @@
 package br.dev.locaweb_app.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -102,6 +103,76 @@ fun CustomInput(
             disabledLeadingIconColor = Color.Gray
         ),
         singleLine = true,
+        shape = cornerShape ?: RegularShape,
+        isError = isError,
+        enabled = enabled
+    )
+}
+
+@Composable
+fun CustomMessageInput(
+    modifier: Modifier = Modifier,
+    textInput: String,
+    onValueChange: (String) -> Unit,
+    textStyle: TextStyle? = null,
+    color: Color? = null,
+    cornerShape: CornerBasedShape? = null,
+    label: String? = null,
+    placeholder: String? = null,
+    keyboard: KeyboardType = KeyboardType.Text,
+    capitalization: KeyboardCapitalization = KeyboardCapitalization.Sentences,
+    isError: Boolean = false,
+    enabled: Boolean = true,
+    themeViewModel: ThemeViewModel? = null
+) {
+
+    val isDarkTheme = themeViewModel?.isDarkTheme?.value
+    val usersColor = themeViewModel?.navBarColor?.value ?: OceanBlue
+
+    var text by remember {
+        mutableStateOf(textInput)
+    }
+
+    OutlinedTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(20.dp)
+            .height(200.dp), // Increase height for multiline input
+        value = text,
+        onValueChange = { letter ->
+            text = letter
+            onValueChange(letter)
+        },
+        label = {
+            label?.let {
+                Text(text = it)
+            }
+        },
+        placeholder = {
+            placeholder?.let {
+                Text(
+                    text = it,
+                )
+            }
+        },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = keyboard,
+            capitalization = capitalization
+        ),
+        textStyle = textStyle ?: TextStyle(),
+        colors = TextFieldDefaults.colors(
+            focusedLabelColor = color ?: Color.Black,
+            focusedTextColor = if (isDarkTheme == true) Color.White else Color.Black,
+            focusedIndicatorColor = color ?: usersColor,
+            focusedPlaceholderColor = Color.Gray,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            errorContainerColor = Color.Transparent,
+            disabledContainerColor = Color(0xFFB7BDE7),
+            disabledTextColor = Color.Gray
+        ),
+        singleLine = false,
+        maxLines = 30,
         shape = cornerShape ?: RegularShape,
         isError = isError,
         enabled = enabled
