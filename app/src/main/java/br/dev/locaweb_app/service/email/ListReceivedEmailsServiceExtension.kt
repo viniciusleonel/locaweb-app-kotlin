@@ -11,7 +11,7 @@ fun listReceivedEmails(
     onFailure: (String) -> Unit,
     navController: NavController
 ) {
-    val call = RetrofitFactory().getEmailService().listSentEmails(id)
+    val call = RetrofitFactory().getEmailService().listReceivedEmails(id)
     handleApiCall(
         call,
         onSuccess = onSuccess,

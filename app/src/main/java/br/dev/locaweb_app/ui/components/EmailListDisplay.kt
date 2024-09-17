@@ -107,7 +107,7 @@ fun EmailListItem(
                     EmailListType.INBOX -> {
                         Row {
                             Text(
-                                text = email.receiveByUser,
+                                text = email.sendByUser,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp,
                                 lineHeight = 24.sp,
