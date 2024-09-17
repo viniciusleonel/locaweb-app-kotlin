@@ -109,7 +109,7 @@ fun MyEmailsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp) // Adjust padding as needed
+            .padding(16.dp)
     ) {
         CustomInput(
             textInput = search,
@@ -133,7 +133,7 @@ fun MyEmailsScreen(
             Text("Error: $errorMessage")
         } else {
             listEmailsResponse?.let { emailsList ->
-                EmailListDisplay(emailsList = emailsList)
+                EmailListDisplay(emailsList = emailsList, color = usersColor)
             } ?: run {
                 Text("No emails found.")
             }
