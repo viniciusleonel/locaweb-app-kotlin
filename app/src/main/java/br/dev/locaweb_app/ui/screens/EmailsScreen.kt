@@ -55,29 +55,7 @@ fun EmailsScreen(
     Column {
         CustomButton(
             onClick = {
-                email.sendEmail(
-                    onSuccess = { response ->
-                        emailResponse = response
-                        snackBarViewModel.showSuccessSnackbar()
-                        scope.launch {
-                            snackBarHostState.showSnackbar(
-                                message = "Email enviado com sucesso!",
-                                duration = SnackbarDuration.Short
-                            )
-                        }
-                    },
-                    onFailure = { message ->
-                        errorMessage = message
-                        snackBarViewModel.showErrorSnackbar()
-                        scope.launch {
-                            snackBarHostState.showSnackbar(
-                                message = errorMessage.toString(),
-                                duration = SnackbarDuration.Short
-                            )
-                        }
-                    },
-                    navController = navController
-                )
+                navController.navigate("my-emails")
             },
             colorsList = buttonColors,
             modifier = modifier.align(Alignment.CenterHorizontally),

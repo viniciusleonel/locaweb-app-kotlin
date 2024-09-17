@@ -313,7 +313,7 @@ fun EditProfileScreen(
                                         )
                                     }
                                     showDialog = false
-                                    navController?.navigate("login")
+                                    navController.navigate("login")
                                 },
                                 onFailure = { message ->
                                     errorMessage = message

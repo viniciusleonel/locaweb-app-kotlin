@@ -29,7 +29,9 @@ fun SettingsScreen(
         systemUiController.setStatusBarColor(color = usersColor)
     }
 
-    Column {
+    Column (
+        modifier = modifier
+    ){
         CustomButton(
             onClick = {
                 navController.navigate("edit-profile")
