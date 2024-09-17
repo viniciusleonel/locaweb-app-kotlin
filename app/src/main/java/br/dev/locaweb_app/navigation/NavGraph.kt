@@ -7,15 +7,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.dev.locaweb_app.model.user.UserViewModel
+import br.dev.locaweb_app.ui.components.EmailListType
 import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.screens.EditProfileScreen
+import br.dev.locaweb_app.ui.screens.EmailListScreen
 import br.dev.locaweb_app.ui.screens.EmailsScreen
-import br.dev.locaweb_app.ui.screens.SendEmailScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
-import br.dev.locaweb_app.ui.screens.MyEmailsScreen
 import br.dev.locaweb_app.ui.screens.RegisterScreen
+import br.dev.locaweb_app.ui.screens.SendEmailScreen
 import br.dev.locaweb_app.ui.screens.SettingsScreen
 import br.dev.locaweb_app.ui.screens.ThemeScreen
 import br.dev.locaweb_app.ui.theme.darkenColor
@@ -117,8 +118,8 @@ fun NavGraph(
                 scope = scope,
             )
         }
-        composable(route = "my-emails") {
-            MyEmailsScreen(
+        composable(route = "sent-emails") {
+            EmailListScreen(
                 navController = navController,
                 buttonColors = buttonColors,
                 themeViewModel = themeViewModel,
@@ -126,6 +127,19 @@ fun NavGraph(
                 snackBarHostState = snackBarHostState,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
+                emailListType = EmailListType.OUTBOX
+            )
+        }
+        composable(route = "received-emails") {
+            EmailListScreen(
+                navController = navController,
+                buttonColors = buttonColors,
+                themeViewModel = themeViewModel,
+                userViewModel = userViewModel,
+                snackBarHostState = snackBarHostState,
+                snackBarViewModel = snackBarViewModel,
+                scope = scope,
+                emailListType = EmailListType.INBOX
             )
         }
     }

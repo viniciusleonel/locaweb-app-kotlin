@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.dev.locaweb_app.ui.theme.Blue
+import br.dev.locaweb_app.utils.reloadScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -77,14 +78,26 @@ fun NavBar(
                 )
             }
 
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "",
-                tint = usersColor,
-                modifier = Modifier
-                    .padding(end = 16.dp)
+            if (currentRoute == "sent-emails" || currentRoute == "received-emails") {
+                EmailMenu(
+                    backgroundColor = usersColor,
+                    onSentEmailsClick = {
+                        navController.navigate("sent-emails")
+                    },
+                    onReceivedEmailsClick = {
+                        navController.navigate("received-emails")
+                    }
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = "",
+                    tint = usersColor,
+                    modifier = Modifier
+                        .padding(end = 16.dp)
 
-            )
+                )
+            }
         }
     }
 }

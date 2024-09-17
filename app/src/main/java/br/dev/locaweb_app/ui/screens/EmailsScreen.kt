@@ -55,7 +55,7 @@ fun EmailsScreen(
     Column {
         CustomButton(
             onClick = {
-                navController.navigate("my-emails")
+                navController.navigate("sent-emails")
             },
             colorsList = buttonColors,
             modifier = modifier.align(Alignment.CenterHorizontally),

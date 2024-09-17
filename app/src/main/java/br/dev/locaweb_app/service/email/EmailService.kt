@@ -16,6 +16,9 @@ interface EmailService {
     @POST("email")
     fun sendEmail(@Body email: Email) : Call<SentEmail>
 
-    @GET("email/user/{id}")
-    fun listEmails(@Path("id") id : Long) : Call<EmailsList>
+    @GET("email/sent/{id}")
+    fun listSentEmails(@Path("id") id : Long) : Call<EmailsList>
+
+    @GET("email/received/{id}")
+    fun listReceivedEmails(@Path("id") id : Long) : Call<EmailsList>
 }

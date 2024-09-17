@@ -5,13 +5,13 @@ import br.dev.locaweb_app.model.email.EmailsList
 import br.dev.locaweb_app.service.RetrofitFactory
 import br.dev.locaweb_app.service.handleApiCall
 
-fun listEmails(
+fun listReceivedEmails(
     id: Long,
     onSuccess: (EmailsList) -> Unit,
     onFailure: (String) -> Unit,
     navController: NavController
 ) {
-    val call = RetrofitFactory().getEmailService().listEmails(id)
+    val call = RetrofitFactory().getEmailService().listSentEmails(id)
     handleApiCall(
         call,
         onSuccess = onSuccess,

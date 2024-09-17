@@ -23,23 +23,41 @@ import androidx.compose.ui.unit.sp
 import br.dev.locaweb_app.model.email.EmailData
 import br.dev.locaweb_app.model.email.EmailsList
 
+enum class EmailListType {
+    INBOX,
+    OUTBOX
+}
+
 @Composable
 fun EmailListDisplay(
     modifier: Modifier = Modifier,
     emailsList: EmailsList,
-    color: Color
+    color: Color,
+    emailListType: EmailListType
 ) {
     Spacer(modifier = Modifier.height(5.dp))
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
-            text = "Enviado para:",
-            fontWeight = FontWeight.ExtraBold,
-            fontSize = 22.sp,
-            lineHeight = 26.sp,
-        )
+        when (emailListType) {
+            EmailListType.OUTBOX -> {
+                Text(
+                    text = "Enviados",
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 22.sp,
+                    lineHeight = 26.sp,
+                )
+            }
+            EmailListType.INBOX -> {
+                Text(
+                    text = "Recebidos",
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 22.sp,
+                    lineHeight = 26.sp,
+                )
+            }
+        }
         Text(
             text = "Assunto",
             fontWeight = FontWeight.ExtraBold,
@@ -58,8 +76,7 @@ fun EmailListDisplay(
         modifier = modifier.fillMaxSize()
     ) {
         items(emailsList.content) { email ->
-            EmailListItem(email, color)
-
+            EmailListItem(email, color, emailListType)
         }
     }
 }
@@ -67,7 +84,8 @@ fun EmailListDisplay(
 @Composable
 fun EmailListItem(
     email: EmailData,
-    color: Color
+    color: Color,
+    emailListType: EmailListType
 ) {
 
     Row(
@@ -85,13 +103,27 @@ fun EmailListItem(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row {
-                    Text(
-                        text = email.receiveByUser,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        lineHeight = 24.sp,
-                    )
+                when (emailListType) {
+                    EmailListType.INBOX -> {
+                        Row {
+                            Text(
+                                text = email.receiveByUser,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp,
+                                lineHeight = 24.sp,
+                            )
+                        }
+                    }
+                    EmailListType.OUTBOX -> {
+                        Row {
+                            Text(
+                                text = email.receiveByUser,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp,
+                                lineHeight = 24.sp,
+                            )
+                        }
+                    }
                 }
                 Row(
                     modifier = Modifier.width(175.dp),
