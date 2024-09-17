@@ -32,6 +32,8 @@ fun CustomInput(
     textInput: String,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle? = null,
+    singleLine: Boolean = true,
+    maxLines: Int = Int. MAX_VALUE,
     color: Color? = null,
     cornerShape: CornerBasedShape? = null,
     icon: ImageVector? = null,
@@ -75,14 +77,16 @@ fun CustomInput(
                 )
             }
         },
-        leadingIcon = {
-            icon?.let {
+
+        leadingIcon = if (icon != null) {
+            {
                 Icon(
                     imageVector = icon,
                     contentDescription = iconDescription
                 )
             }
-        },
+        } else null,
+
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = keyboard,
             capitalization = capitalization
@@ -90,7 +94,7 @@ fun CustomInput(
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         textStyle = textStyle ?: TextStyle(),
         colors = TextFieldDefaults.colors(
-            focusedLabelColor = color ?: Color.Black,
+            focusedLabelColor = color ?: usersColor,
             focusedTextColor = if (isDarkTheme == true) Color.White else Color.Black,
             focusedIndicatorColor = color ?: usersColor,
             focusedLeadingIconColor = color ?: usersColor,
@@ -102,77 +106,8 @@ fun CustomInput(
             disabledTextColor = Color.Gray,
             disabledLeadingIconColor = Color.Gray
         ),
-        singleLine = true,
-        shape = cornerShape ?: RegularShape,
-        isError = isError,
-        enabled = enabled
-    )
-}
-
-@Composable
-fun CustomMessageInput(
-    modifier: Modifier = Modifier,
-    textInput: String,
-    onValueChange: (String) -> Unit,
-    textStyle: TextStyle? = null,
-    color: Color? = null,
-    cornerShape: CornerBasedShape? = null,
-    label: String? = null,
-    placeholder: String? = null,
-    keyboard: KeyboardType = KeyboardType.Text,
-    capitalization: KeyboardCapitalization = KeyboardCapitalization.Sentences,
-    isError: Boolean = false,
-    enabled: Boolean = true,
-    themeViewModel: ThemeViewModel? = null
-) {
-
-    val isDarkTheme = themeViewModel?.isDarkTheme?.value
-    val usersColor = themeViewModel?.navBarColor?.value ?: OceanBlue
-
-    var text by remember {
-        mutableStateOf(textInput)
-    }
-
-    OutlinedTextField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(20.dp)
-            .height(200.dp), // Increase height for multiline input
-        value = text,
-        onValueChange = { letter ->
-            text = letter
-            onValueChange(letter)
-        },
-        label = {
-            label?.let {
-                Text(text = it)
-            }
-        },
-        placeholder = {
-            placeholder?.let {
-                Text(
-                    text = it,
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = keyboard,
-            capitalization = capitalization
-        ),
-        textStyle = textStyle ?: TextStyle(),
-        colors = TextFieldDefaults.colors(
-            focusedLabelColor = color ?: Color.Black,
-            focusedTextColor = if (isDarkTheme == true) Color.White else Color.Black,
-            focusedIndicatorColor = color ?: usersColor,
-            focusedPlaceholderColor = Color.Gray,
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-            errorContainerColor = Color.Transparent,
-            disabledContainerColor = Color(0xFFB7BDE7),
-            disabledTextColor = Color.Gray
-        ),
-        singleLine = false,
-        maxLines = 30,
+        singleLine = singleLine,
+        maxLines = maxLines,
         shape = cornerShape ?: RegularShape,
         isError = isError,
         enabled = enabled

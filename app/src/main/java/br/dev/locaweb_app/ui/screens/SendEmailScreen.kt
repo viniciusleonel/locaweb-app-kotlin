@@ -3,6 +3,7 @@ package br.dev.locaweb_app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.email.Email
 import br.dev.locaweb_app.model.email.SentEmail
@@ -22,10 +24,10 @@ import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.email.sendEmail
 import br.dev.locaweb_app.ui.components.CustomButton
 import br.dev.locaweb_app.ui.components.CustomInput
-import br.dev.locaweb_app.ui.components.CustomMessageInput
 import br.dev.locaweb_app.ui.components.ErrorMessage
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
+import br.dev.locaweb_app.utils.reloadScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -63,7 +65,6 @@ fun SendEmailScreen(
     fun clearErrors() {
         isErrorRecipient = false
         isErrorSubject = false
-
     }
 
     fun formIsEmpty(): Boolean {
@@ -100,40 +101,47 @@ fun SendEmailScreen(
         )
         if (isErrorSubject) ErrorMessage(text = "Assunto é obrigatório!")
 
-        CustomMessageInput(
+        CustomInput(
+            modifier = Modifier
+                .height(200.dp),
             textInput = message,
             onValueChange = { message = it },
             label = "Message:",
             placeholder = "",
             themeViewModel = themeViewModel,
-            capitalization = KeyboardCapitalization.Words
+            capitalization = KeyboardCapitalization.Words,
+            singleLine = false,
+            maxLines = 30
         )
         CustomButton(
             onClick = {
-                val email = Email(sender, recipient, subject, message)
-                email.sendEmail(
-                    onSuccess = { response ->
-                        emailResponse = response
-                        snackBarViewModel.showSuccessSnackbar()
-                        scope.launch {
-                            snackBarHostState.showSnackbar(
-                                message = "Email enviado com sucesso!",
-                                duration = SnackbarDuration.Short
-                            )
-                        }
-                    },
-                    onFailure = { message ->
-                        errorMessage = message
-                        snackBarViewModel.showErrorSnackbar()
-                        scope.launch {
-                            snackBarHostState.showSnackbar(
-                                message = errorMessage.toString(),
-                                duration = SnackbarDuration.Short
-                            )
-                        }
-                    },
-                    navController = navController
-                )
+                if (!formIsEmpty()) {
+                    val email = Email(sender, recipient, subject, message)
+                    email.sendEmail(
+                        onSuccess = { response ->
+                            emailResponse = response
+                            snackBarViewModel.showSuccessSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = "Email enviado com sucesso!",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                            reloadScreen(navController, "send-email")
+                        },
+                        onFailure = { message ->
+                            errorMessage = message
+                            snackBarViewModel.showErrorSnackbar()
+                            scope.launch {
+                                snackBarHostState.showSnackbar(
+                                    message = errorMessage.toString(),
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                        },
+                        navController = navController
+                    )
+                }
             },
             colorsList = buttonColors,
             modifier = modifier.align(Alignment.CenterHorizontally),

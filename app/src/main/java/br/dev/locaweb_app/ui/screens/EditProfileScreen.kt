@@ -43,6 +43,7 @@ import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.theme.ButtonColorsWarning
 import br.dev.locaweb_app.ui.theme.Typography
+import br.dev.locaweb_app.utils.reloadScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -272,6 +273,7 @@ fun EditProfileScreen(
                                 )
                             }
                             isEditing = false
+                            reloadScreen(navController, "edit-profile")
                         },
                         colorsList = ButtonColorsWarning,
                         text = "Cancel Changes"
