@@ -7,7 +7,6 @@ val routeTitles = mapOf(
     "sent-emails" to "Outbox",
     "send-email" to "Send Email",
     "settings" to "Settings",
-    "theme" to "Theme",
 )
 
 fun getRouteTitle(currentRoute: String?): String {

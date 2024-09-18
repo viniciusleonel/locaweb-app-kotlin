@@ -15,7 +15,6 @@ import br.dev.locaweb_app.ui.screens.email.EmailListScreen
 import br.dev.locaweb_app.ui.screens.email.EmailViewScreen
 import br.dev.locaweb_app.ui.screens.email.SendEmailScreen
 import br.dev.locaweb_app.ui.screens.preferences.SettingsScreen
-import br.dev.locaweb_app.ui.screens.preferences.ThemeScreen
 import br.dev.locaweb_app.ui.screens.user.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.user.LoginScreen
 import br.dev.locaweb_app.ui.screens.user.RegisterScreen
@@ -71,17 +70,6 @@ fun NavGraph(
         }
         composable(route = "settings") {
             SettingsScreen(
-                navController = navController,
-                buttonColors = buttonColors,
-                themeViewModel = themeViewModel,
-                userViewModel = userViewModel,
-                snackBarViewModel = snackBarViewModel,
-                snackBarHostState = snackBarHostState,
-                scope = scope,
-            )
-        }
-        composable(route = "theme") {
-            ThemeScreen(
                 userViewModel = userViewModel,
                 themeViewModel = themeViewModel,
                 navController = navController,
