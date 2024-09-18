@@ -122,7 +122,6 @@ fun EmailListScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
-                                Log.i("Erro lista emails", errorMessage!!)
                                 isLoading = false
                             },
                             navController = navController
@@ -169,7 +168,13 @@ fun EmailListScreen(
                 EmailListDisplay(
                     emailsList = emailsList,
                     color = usersColor,
-                    emailListType = emailListType
+                    emailListType = emailListType,
+                    userViewModel = userViewModel,
+                    navController = navController,
+                    themeViewModel = themeViewModel,
+                    snackBarHostState = snackBarHostState,
+                    snackBarViewModel = snackBarViewModel,
+                    scope = scope
                 )
             } ?: run {
                 Text("No emails found.")

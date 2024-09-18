@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.email.Email
@@ -85,7 +86,7 @@ fun SendEmailScreen(
             label = "Recipient:",
             placeholder = "",
             themeViewModel = themeViewModel,
-            capitalization = KeyboardCapitalization.Words,
+            keyboard = KeyboardType.Email,
             isError = isErrorRecipient
         )
         if (isErrorRecipient) ErrorMessage(text = "Destinatário é obrigatório!")

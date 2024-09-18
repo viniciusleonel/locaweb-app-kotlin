@@ -13,6 +13,7 @@ import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
 import br.dev.locaweb_app.ui.screens.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.EmailListScreen
+import br.dev.locaweb_app.ui.screens.EmailViewScreen
 import br.dev.locaweb_app.ui.screens.EmailsScreen
 import br.dev.locaweb_app.ui.screens.LoginScreen
 import br.dev.locaweb_app.ui.screens.RegisterScreen
@@ -100,11 +101,7 @@ fun NavGraph(
             EmailsScreen(
                 navController = navController,
                 buttonColors = buttonColors,
-                themeViewModel = themeViewModel,
-                userViewModel = userViewModel,
-                snackBarHostState = snackBarHostState,
-                snackBarViewModel = snackBarViewModel,
-                scope = scope,
+                themeViewModel = themeViewModel
             )
         }
         composable(route = "send-email") {
@@ -142,5 +139,20 @@ fun NavGraph(
                 emailListType = EmailListType.INBOX
             )
         }
+        composable(route = "emailView/{emailId}") { backStackEntry ->
+            val emailId = backStackEntry.arguments?.getString("emailId")?.toLong()
+            if (emailId != null) {
+                EmailViewScreen(
+                    navController = navController,
+                    themeViewModel = themeViewModel,
+                    userViewModel = userViewModel,
+                    snackBarHostState = snackBarHostState,
+                    snackBarViewModel = snackBarViewModel,
+                    scope = scope,
+                    emailId = emailId
+                )
+            }
+        }
+
     }
 }

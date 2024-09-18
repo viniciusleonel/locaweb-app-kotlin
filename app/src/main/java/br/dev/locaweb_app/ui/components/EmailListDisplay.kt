@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,8 +21,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.dev.locaweb_app.model.email.EmailData
 import br.dev.locaweb_app.model.email.EmailsList
+import br.dev.locaweb_app.model.user.UserViewModel
+import br.dev.locaweb_app.service.email.getEmailByIdAndUserId
+import br.dev.locaweb_app.ui.screens.EmailViewScreen
+import kotlinx.coroutines.CoroutineScope
 
 enum class EmailListType {
     INBOX,
@@ -33,7 +39,13 @@ fun EmailListDisplay(
     modifier: Modifier = Modifier,
     emailsList: EmailsList,
     color: Color,
-    emailListType: EmailListType
+    emailListType: EmailListType,
+    userViewModel: UserViewModel,
+    themeViewModel: ThemeViewModel,
+    navController: NavController,
+    snackBarHostState: SnackbarHostState,
+    snackBarViewModel: SnackBarViewModel,
+    scope: CoroutineScope,
 ) {
     Spacer(modifier = Modifier.height(5.dp))
     Row(
@@ -49,6 +61,7 @@ fun EmailListDisplay(
                     lineHeight = 26.sp,
                 )
             }
+
             EmailListType.INBOX -> {
                 Text(
                     text = "Recebidos",
@@ -76,7 +89,17 @@ fun EmailListDisplay(
         modifier = modifier.fillMaxSize()
     ) {
         items(emailsList.content) { email ->
-            EmailListItem(email, color, emailListType)
+            EmailListItem(
+                email,
+                color,
+                emailListType,
+                userViewModel,
+                themeViewModel,
+                navController,
+                snackBarHostState,
+                snackBarViewModel,
+                scope
+            )
         }
     }
 }
@@ -85,13 +108,23 @@ fun EmailListDisplay(
 fun EmailListItem(
     email: EmailData,
     color: Color,
-    emailListType: EmailListType
+    emailListType: EmailListType,
+    userViewModel: UserViewModel,
+    themeViewModel: ThemeViewModel,
+    navController: NavController,
+    snackBarHostState: SnackbarHostState,
+    snackBarViewModel: SnackBarViewModel,
+    scope: CoroutineScope,
 ) {
+
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* Handle item click */ },
+            .clickable {
+                navController.navigate("emailView/${email.id}")
+
+            },
     ) {
         Column(
             modifier = Modifier
@@ -114,6 +147,7 @@ fun EmailListItem(
                             )
                         }
                     }
+
                     EmailListType.OUTBOX -> {
                         Row {
                             Text(

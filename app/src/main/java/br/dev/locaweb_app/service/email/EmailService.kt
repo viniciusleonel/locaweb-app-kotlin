@@ -1,6 +1,7 @@
 package br.dev.locaweb_app.service.email
 
 import br.dev.locaweb_app.model.email.Email
+import br.dev.locaweb_app.model.email.EmailDetails
 import br.dev.locaweb_app.model.email.EmailsList
 import br.dev.locaweb_app.model.email.SentEmail
 import retrofit2.Call
@@ -21,4 +22,7 @@ interface EmailService {
 
     @GET("email/received/{id}")
     fun listReceivedEmails(@Path("id") id : Long) : Call<EmailsList>
+
+    @GET("email/{emailId}/user/{userId}")
+    fun getEmailByIdAndUserId(@Path("emailId") id : Long, @Path("userId") userId : Long) : Call<EmailDetails>
 }

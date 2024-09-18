@@ -35,18 +35,10 @@ fun EmailsScreen(
     navController: NavController,
     buttonColors: List<Color>? = null,
     themeViewModel: ThemeViewModel,
-    userViewModel: UserViewModel,
-    snackBarHostState: SnackbarHostState,
-    snackBarViewModel: SnackBarViewModel,
-    scope: CoroutineScope,
 ) {
 
     val systemUiController = rememberSystemUiController()
     val usersColor = themeViewModel.navBarColor.value
-    var emailResponse by remember { mutableStateOf(SentEmail()) }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
-    val user = userViewModel.userLoginResponse.value
-    val email = Email("", "" ,"" ,"")
 
     SideEffect {
         systemUiController.setStatusBarColor(color = usersColor)
