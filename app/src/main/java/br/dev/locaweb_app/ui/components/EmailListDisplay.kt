@@ -27,6 +27,7 @@ import br.dev.locaweb_app.model.email.EmailsList
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.email.getEmailByIdAndUserId
 import br.dev.locaweb_app.ui.screens.EmailViewScreen
+import br.dev.locaweb_app.utils.formatDate
 import kotlinx.coroutines.CoroutineScope
 
 enum class EmailListType {
@@ -175,7 +176,7 @@ fun EmailListItem(
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = email.sendAt, // Format date as needed
+                text = formatDate(email.sendAt),
             )
             Spacer(modifier = Modifier.height(4.dp))
             HorizontalDivider(

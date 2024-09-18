@@ -29,6 +29,7 @@ import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.email.getEmailByIdAndUserId
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
+import br.dev.locaweb_app.utils.formatDate
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -126,22 +127,30 @@ fun EmailDetailsView(emailDetails: EmailDetails) {
             .padding(8.dp)
     ) {
         Text(
+            text = emailDetails.subject,
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
             text = "From: ${emailDetails.sendByUser}",
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp
+            fontSize = 18.sp
         )
         Text(
             text = "To: ${emailDetails.receiveByUser}",
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Subject: ${emailDetails.subject}",
-            fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = "Sent at: ${formatDate(emailDetails.sendAt)}",
+            color = Color.Gray,
+            fontSize = 14.sp
+        )
+
+
+
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
@@ -150,25 +159,18 @@ fun EmailDetailsView(emailDetails: EmailDetails) {
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "Sent at: ${emailDetails.sendAt}",
-            color = Color.Gray,
-            fontSize = 14.sp
-        )
-
-        // Optionally, show if the email was read
-        if (emailDetails.wasRead) {
-            Text(
-                text = "Status: Read",
-                color = Color.Green,
-                fontSize = 14.sp
-            )
-        } else {
-            Text(
-                text = "Status: Unread",
-                color = Color.Red,
-                fontSize = 14.sp
-            )
-        }
+//        if (emailDetails.wasRead) {
+//            Text(
+//                text = "Status: Read",
+//                color = Color.Green,
+//                fontSize = 14.sp
+//            )
+//        } else {
+//            Text(
+//                text = "Status: Unread",
+//                color = Color.Red,
+//                fontSize = 14.sp
+//            )
+//        }
     }
 }
