@@ -1,11 +1,13 @@
 package br.dev.locaweb_app.service.email
 
+import br.dev.locaweb_app.model.MessageResponse
 import br.dev.locaweb_app.model.email.Email
 import br.dev.locaweb_app.model.email.EmailDetails
 import br.dev.locaweb_app.model.email.EmailsList
 import br.dev.locaweb_app.model.email.SentEmail
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -19,6 +21,9 @@ interface EmailService {
 
     @GET("email/sent/{id}?sort=sentAt,desc")
     fun listSentEmails(@Path("id") id: Long): Call<EmailsList>
+
+    @DELETE("email/{id}")
+    fun deleteEmailById(@Path("id") id: Long): Call<MessageResponse>
 
     @GET("email/received/{id}?sort=sentAt,desc")
     fun listReceivedEmails(@Path("id") id: Long): Call<EmailsList>
