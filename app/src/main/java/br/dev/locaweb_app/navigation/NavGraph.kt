@@ -11,15 +11,14 @@ import br.dev.locaweb_app.ui.components.EmailListType
 import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.screens.user.EditProfileScreen
 import br.dev.locaweb_app.ui.screens.email.EmailListScreen
 import br.dev.locaweb_app.ui.screens.email.EmailViewScreen
-import br.dev.locaweb_app.ui.screens.email.EmailsScreen
-import br.dev.locaweb_app.ui.screens.user.LoginScreen
-import br.dev.locaweb_app.ui.screens.user.RegisterScreen
 import br.dev.locaweb_app.ui.screens.email.SendEmailScreen
 import br.dev.locaweb_app.ui.screens.preferences.SettingsScreen
 import br.dev.locaweb_app.ui.screens.preferences.ThemeScreen
+import br.dev.locaweb_app.ui.screens.user.EditProfileScreen
+import br.dev.locaweb_app.ui.screens.user.LoginScreen
+import br.dev.locaweb_app.ui.screens.user.RegisterScreen
 import br.dev.locaweb_app.ui.theme.darkenColor
 import kotlinx.coroutines.CoroutineScope
 
@@ -90,13 +89,6 @@ fun NavGraph(
                 snackBarHostState = snackBarHostState,
                 snackBarViewModel = snackBarViewModel,
                 scope = scope,
-            )
-        }
-        composable(route = "emails") {
-            EmailsScreen(
-                navController = navController,
-                buttonColors = buttonColors,
-                themeViewModel = themeViewModel
             )
         }
         composable(route = "send-email") {

@@ -1,14 +1,8 @@
 package br.dev.locaweb_app.ui.screens.email
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -28,7 +22,6 @@ import br.dev.locaweb_app.model.email.EmailsList
 import br.dev.locaweb_app.model.user.UserViewModel
 import br.dev.locaweb_app.service.email.listReceivedEmails
 import br.dev.locaweb_app.service.email.listSentEmails
-import br.dev.locaweb_app.ui.components.CustomInput
 import br.dev.locaweb_app.ui.components.EmailListDisplay
 import br.dev.locaweb_app.ui.components.EmailListType
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
@@ -54,7 +47,6 @@ fun EmailListScreen(
     val usersColor = themeViewModel.navBarColor.value
     val user = userViewModel.userLoginResponse.value
     val coroutineScope = rememberCoroutineScope()
-    var search by remember { mutableStateOf("") }
     var searchError by remember { mutableStateOf(false) }
     var listEmailsResponse by remember { mutableStateOf<EmailsList?>(null) }
     var isLoading by remember { mutableStateOf(true) }

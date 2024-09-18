@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -43,9 +44,17 @@ fun MenuBar(
                 icon = Icons.Filled.Email,
                 text = "Emails",
                 modifier = Modifier.weight(1f),
-                color = if (currentRoute == "emails") navBarColor else regularColor,
+                color = if (currentRoute == "sent-emails" || currentRoute == "received-emails") navBarColor else regularColor,
                 onClick = {
-                    navController.navigate("emails")
+                    navController.navigate("sent-emails")
+                }
+            )
+            MenuItem(
+                icon = Icons.Filled.Add,
+                text = "Send",
+                modifier = Modifier.weight(1f),
+                color = if (currentRoute == "send-email") navBarColor else regularColor, onClick = {
+                    navController.navigate("send-email")
                 }
             )
             MenuItem(

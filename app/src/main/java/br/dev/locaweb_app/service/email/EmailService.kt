@@ -17,10 +17,10 @@ interface EmailService {
     @POST("email")
     fun sendEmail(@Body email: Email): Call<SentEmail>
 
-    @GET("email/sent/{id}")
+    @GET("email/sent/{id}?sort=sentAt,desc")
     fun listSentEmails(@Path("id") id: Long): Call<EmailsList>
 
-    @GET("email/received/{id}")
+    @GET("email/received/{id}?sort=sentAt,desc")
     fun listReceivedEmails(@Path("id") id: Long): Call<EmailsList>
 
     @GET("email/{emailId}/user/{userId}")
