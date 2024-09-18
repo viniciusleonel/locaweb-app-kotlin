@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
             LocawebappTheme(darkTheme = isDarkTheme) {
                 MainScreen(
-                    themeViewModel = themeViewModel // Passe o viewModel para a MainScreen
+                    themeViewModel = themeViewModel
                 )
             }
         }
