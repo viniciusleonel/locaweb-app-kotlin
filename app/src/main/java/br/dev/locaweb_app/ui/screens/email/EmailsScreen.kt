@@ -1,10 +1,11 @@
-package br.dev.locaweb_app.ui.screens
+package br.dev.locaweb_app.ui.screens.email
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -15,7 +16,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun SettingsScreen(
+fun EmailsScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     buttonColors: List<Color>? = null,
@@ -29,23 +30,23 @@ fun SettingsScreen(
         systemUiController.setStatusBarColor(color = usersColor)
     }
 
-    Column(
-        modifier = modifier
-    ) {
+    Column {
         CustomButton(
             onClick = {
-                navController.navigate("edit-profile")
+                navController.navigate("sent-emails")
             },
-            text = "Edit Profile",
-            colorsList = buttonColors
+            colorsList = buttonColors,
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            text = "Emails"
         )
         Spacer(modifier = Modifier.height(15.dp))
         CustomButton(
             onClick = {
-                navController.navigate("theme")
+                navController.navigate("send-email")
             },
-            text = "Change Theme",
-            colorsList = buttonColors
+            colorsList = buttonColors,
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            text = "Send Email"
         )
     }
 }

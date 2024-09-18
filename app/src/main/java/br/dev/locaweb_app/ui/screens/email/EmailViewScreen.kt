@@ -1,4 +1,4 @@
-package br.dev.locaweb_app.ui.screens
+package br.dev.locaweb_app.ui.screens.email
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column

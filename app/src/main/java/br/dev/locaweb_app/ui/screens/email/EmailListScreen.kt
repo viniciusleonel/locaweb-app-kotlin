@@ -1,6 +1,5 @@
-package br.dev.locaweb_app.ui.screens
+package br.dev.locaweb_app.ui.screens.email
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -140,22 +139,6 @@ fun EmailListScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        CustomInput(
-            textInput = search,
-            onValueChange = { search = it },
-            label = "Search:",
-            placeholder = "Search",
-            icon = Icons.Filled.Search,
-            themeViewModel = themeViewModel,
-            isError = searchError
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-
         if (isLoading) {
             Text("Loading...")
         } else if (errorMessage != null) {

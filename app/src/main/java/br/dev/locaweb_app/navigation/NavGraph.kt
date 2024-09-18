@@ -11,15 +11,15 @@ import br.dev.locaweb_app.ui.components.EmailListType
 import br.dev.locaweb_app.ui.components.SnackBarStatus
 import br.dev.locaweb_app.ui.components.SnackBarViewModel
 import br.dev.locaweb_app.ui.components.ThemeViewModel
-import br.dev.locaweb_app.ui.screens.EditProfileScreen
-import br.dev.locaweb_app.ui.screens.EmailListScreen
-import br.dev.locaweb_app.ui.screens.EmailViewScreen
-import br.dev.locaweb_app.ui.screens.EmailsScreen
-import br.dev.locaweb_app.ui.screens.LoginScreen
-import br.dev.locaweb_app.ui.screens.RegisterScreen
-import br.dev.locaweb_app.ui.screens.SendEmailScreen
-import br.dev.locaweb_app.ui.screens.SettingsScreen
-import br.dev.locaweb_app.ui.screens.ThemeScreen
+import br.dev.locaweb_app.ui.screens.user.EditProfileScreen
+import br.dev.locaweb_app.ui.screens.email.EmailListScreen
+import br.dev.locaweb_app.ui.screens.email.EmailViewScreen
+import br.dev.locaweb_app.ui.screens.email.EmailsScreen
+import br.dev.locaweb_app.ui.screens.user.LoginScreen
+import br.dev.locaweb_app.ui.screens.user.RegisterScreen
+import br.dev.locaweb_app.ui.screens.email.SendEmailScreen
+import br.dev.locaweb_app.ui.screens.preferences.SettingsScreen
+import br.dev.locaweb_app.ui.screens.preferences.ThemeScreen
 import br.dev.locaweb_app.ui.theme.darkenColor
 import kotlinx.coroutines.CoroutineScope
 
@@ -75,6 +75,10 @@ fun NavGraph(
                 navController = navController,
                 buttonColors = buttonColors,
                 themeViewModel = themeViewModel,
+                userViewModel = userViewModel,
+                snackBarViewModel = snackBarViewModel,
+                snackBarHostState = snackBarHostState,
+                scope = scope,
             )
         }
         composable(route = "theme") {
@@ -144,6 +148,5 @@ fun NavGraph(
                 )
             }
         }
-
     }
 }

@@ -46,7 +46,7 @@ fun EmailListDisplay(
         when (emailListType) {
             EmailListType.OUTBOX -> {
                 Text(
-                    text = "Enviados",
+                    text = "Sent",
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 22.sp,
                     lineHeight = 26.sp,
@@ -55,7 +55,7 @@ fun EmailListDisplay(
 
             EmailListType.INBOX -> {
                 Text(
-                    text = "Recebidos",
+                    text = "Received",
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 22.sp,
                     lineHeight = 26.sp,
@@ -63,7 +63,7 @@ fun EmailListDisplay(
             }
         }
         Text(
-            text = "Assunto",
+            text = "Subject",
             fontWeight = FontWeight.ExtraBold,
             fontSize = 22.sp,
             lineHeight = 26.sp,

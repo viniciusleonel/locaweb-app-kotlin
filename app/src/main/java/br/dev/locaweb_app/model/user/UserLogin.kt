@@ -7,6 +7,10 @@ data class UserLogin(
     val password: String
 )
 
+data class UserLogout(
+    val username: String,
+)
+
 data class UserLoginResponse(
     val id: Long = 0,
     val name: String = "",

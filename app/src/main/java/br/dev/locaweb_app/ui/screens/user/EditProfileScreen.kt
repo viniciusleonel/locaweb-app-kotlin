@@ -1,4 +1,4 @@
-package br.dev.locaweb_app.ui.screens
+package br.dev.locaweb_app.ui.screens.user
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
