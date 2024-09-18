@@ -56,7 +56,7 @@ fun SendEmailScreen(
     }
 
     val user = userViewModel.userLoginResponse.value
-    var sender by remember { mutableStateOf(user?.email ?: "") }
+    val sender by remember { mutableStateOf(user?.email ?: "") }
     var recipient by remember { mutableStateOf("") }
     var subject by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
@@ -89,7 +89,7 @@ fun SendEmailScreen(
             keyboard = KeyboardType.Email,
             isError = isErrorRecipient
         )
-        if (isErrorRecipient) ErrorMessage(text = "Destinatário é obrigatório!")
+        if (isErrorRecipient) ErrorMessage(text = "Recipient is required!")
 
         CustomInput(
             textInput = subject,
@@ -100,7 +100,7 @@ fun SendEmailScreen(
             capitalization = KeyboardCapitalization.Words,
             isError = isErrorSubject
         )
-        if (isErrorSubject) ErrorMessage(text = "Assunto é obrigatório!")
+        if (isErrorSubject) ErrorMessage(text = "Subject is required!")
 
         CustomInput(
             modifier = Modifier
@@ -124,7 +124,7 @@ fun SendEmailScreen(
                             snackBarViewModel.showSuccessSnackbar()
                             scope.launch {
                                 snackBarHostState.showSnackbar(
-                                    message = "Email enviado com sucesso!",
+                                    message = "Email sent successfully!",
                                     duration = SnackbarDuration.Short
                                 )
                             }

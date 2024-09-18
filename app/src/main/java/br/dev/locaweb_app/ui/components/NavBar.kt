@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.dev.locaweb_app.ui.theme.Blue
-import br.dev.locaweb_app.utils.reloadScreen
+import br.dev.locaweb_app.utils.getRouteTitle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -67,7 +67,7 @@ fun NavBar(
             )
             if (currentRoute != null) {
                 Text(
-                    text = currentRoute.uppercase(),
+                    text = getRouteTitle(currentRoute),
                     style = MaterialTheme.typography.titleLarge,
                     color = Color.White
                 )

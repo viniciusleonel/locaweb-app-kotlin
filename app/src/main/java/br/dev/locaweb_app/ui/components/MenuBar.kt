@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import br.dev.locaweb_app.ui.theme.Blue
 
 @Composable
 fun MenuBar(
@@ -58,17 +57,6 @@ fun MenuBar(
                     navController.navigate("settings")
                 }
             )
-
-//            MenuItem(
-//                icon = Icons.Filled.Person,
-//                text = "Profile",
-//                modifier = Modifier
-//                    .weight(1f),
-//                color = if (currentRoute == "profile") Blue else regularColor,
-//                onClick = {
-//                    navController.navigate("profile")
-//                }
-//            )
         }
     }
 }

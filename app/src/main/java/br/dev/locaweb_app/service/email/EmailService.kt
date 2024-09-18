@@ -15,14 +15,17 @@ interface EmailService {
     // http://localhost:8080/api/email
 
     @POST("email")
-    fun sendEmail(@Body email: Email) : Call<SentEmail>
+    fun sendEmail(@Body email: Email): Call<SentEmail>
 
     @GET("email/sent/{id}")
-    fun listSentEmails(@Path("id") id : Long) : Call<EmailsList>
+    fun listSentEmails(@Path("id") id: Long): Call<EmailsList>
 
     @GET("email/received/{id}")
-    fun listReceivedEmails(@Path("id") id : Long) : Call<EmailsList>
+    fun listReceivedEmails(@Path("id") id: Long): Call<EmailsList>
 
     @GET("email/{emailId}/user/{userId}")
-    fun getEmailByIdAndUserId(@Path("emailId") id : Long, @Path("userId") userId : Long) : Call<EmailDetails>
+    fun getEmailByIdAndUserId(
+        @Path("emailId") id: Long,
+        @Path("userId") userId: Long
+    ): Call<EmailDetails>
 }

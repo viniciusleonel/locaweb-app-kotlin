@@ -58,9 +58,9 @@ fun ColorPickerDialog(
     onDismiss: () -> Unit,
     buttonColors: List<Color>? = null
 ) {
-    var hue by remember { mutableStateOf(0f) }  // Valor da tonalidade
-    var saturation by remember { mutableStateOf(1f) }  // Saturação
-    var brightness by remember { mutableStateOf(1f) }  // Brilho
+    var hue by remember { mutableStateOf(0f) }
+    var saturation by remember { mutableStateOf(1f) }
+    var brightness by remember { mutableStateOf(1f) }
 
     val color = Color.hsv(hue, saturation, brightness)
 
@@ -191,13 +191,13 @@ fun SaturationBrightnessPicker(
                 color = Color.Transparent,
                 radius = 10.dp.toPx(),
                 center = touchOffset,
-                style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round) // Borda branca
+                style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round)
             )
             drawCircle(
                 color = Color.White,
                 radius = 12.dp.toPx(),
                 center = touchOffset,
-                style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round) // Borda branca
+                style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round)
             )
         }
     }

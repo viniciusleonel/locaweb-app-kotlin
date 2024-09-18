@@ -205,8 +205,8 @@ fun EditProfileScreen(
                     enabled = isEditing,
                     themeViewModel = themeViewModel
                 )
-                if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
-                if (passwordsMatchError) ErrorMessage(text = "As senhas precisam ser iguais!")
+                if (isErrorCheckPassword) ErrorMessage(text = "Password confirmation is required!")
+                if (passwordsMatchError) ErrorMessage(text = "Passwords do not match!")
 
                 Spacer(modifier = Modifier.height(5.dp))
 
@@ -222,13 +222,14 @@ fun EditProfileScreen(
                                 ) {
 
 
-                                    userUpdate.update(user.id,
+                                    userUpdate.update(
+                                        user.id,
                                         onSuccess = { response ->
                                             userUpdateResponse = response
                                             snackBarViewModel.showSuccessSnackbar()
                                             scope.launch {
                                                 snackBarHostState.showSnackbar(
-                                                    message = "Atualizado com sucesso!",
+                                                    message = "Updated successfully!",
                                                     duration = SnackbarDuration.Short
                                                 )
                                             }
@@ -251,7 +252,7 @@ fun EditProfileScreen(
                                     snackBarViewModel.showRegularSnackbar()
                                     scope.launch {
                                         snackBarHostState.showSnackbar(
-                                            message = "Nenhuma alteração detectada!",
+                                            message = "No changes detected!",
                                             duration = SnackbarDuration.Short
                                         )
                                     }
@@ -268,7 +269,7 @@ fun EditProfileScreen(
                             snackBarViewModel.showRegularSnackbar()
                             scope.launch {
                                 snackBarHostState.showSnackbar(
-                                    message = "Nenhuma alteração detectada!",
+                                    message = "No changes detected!",
                                     duration = SnackbarDuration.Short
                                 )
                             }
@@ -302,13 +303,14 @@ fun EditProfileScreen(
                         dialogState = showDialog,
                         onConfirmRequest = {
 
-                            deleteUserById(user.id,
+                            deleteUserById(
+                                user.id,
                                 onSuccess = { response ->
                                     userDeleteResponse = response
                                     snackBarViewModel.showSuccessSnackbar()
                                     scope.launch {
                                         snackBarHostState.showSnackbar(
-                                            message = "Usuário deletado com sucesso!",
+                                            message = "User deleted successfully!",
                                             duration = SnackbarDuration.Short
                                         )
                                     }

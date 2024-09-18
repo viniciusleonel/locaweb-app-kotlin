@@ -36,7 +36,8 @@ fun CustomButton(
         else -> Brush.linearGradient(listOf(usersColor, usersColor))
     }
 
-    val textColor = if(isDarkTheme == true && colorsList == null && color == null) Color.Black else Color.White
+    val textColor =
+        if (isDarkTheme == true && colorsList == null && color == null) Color.Black else Color.White
 
     Button(
         onClick,
@@ -59,7 +60,7 @@ fun CustomButton(
         Text(
             text = text,
             fontSize = 18.sp,
-            color =  textColor,
+            color = textColor,
             fontWeight = FontWeight.Bold
         )
     }

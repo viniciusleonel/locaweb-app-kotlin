@@ -37,15 +37,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
-
     navController: NavController? = null,
-
     snackBarHostState: SnackbarHostState,
     snackBarViewModel: SnackBarViewModel,
     scope: CoroutineScope,
-
     themeViewModel: ThemeViewModel,
-
     buttonColors: List<Color>? = null
 ) {
 
@@ -105,63 +101,63 @@ fun RegisterScreen(
             textInput = name,
             onValueChange = { name = it },
             label = "Insert your name:",
-            placeholder = "Insira seu nome:",
+            placeholder = "Insert your name",
             icon = Icons.Filled.Person,
             themeViewModel = themeViewModel,
             capitalization = KeyboardCapitalization.Words,
             isError = isErrorName
         )
-        if (isErrorName) ErrorMessage(text = "Nome é obrigatório!")
+        if (isErrorName) ErrorMessage(text = "Name is required!")
 
         CustomInput(
             textInput = email,
             onValueChange = { email = it },
             label = "Insert your email:",
-            placeholder = "Insira seu email:",
+            placeholder = "Insert your email",
             icon = Icons.Filled.Email,
             themeViewModel = themeViewModel,
             keyboard = KeyboardType.Email,
             isError = isErrorEmail
         )
-        if (isErrorEmail) ErrorMessage(text = "Email é obrigatório!")
+        if (isErrorEmail) ErrorMessage(text = "Email is required!!")
 
         CustomInput(
             textInput = username,
             onValueChange = { username = it },
             label = "Insert your username:",
-            placeholder = "Insira seu username:",
+            placeholder = "Insert your username",
             icon = Icons.Filled.AccountCircle,
             themeViewModel = themeViewModel,
             isError = isErrorUsername
         )
-        if (isErrorUsername) ErrorMessage(text = "Username é obrigatório!")
+        if (isErrorUsername) ErrorMessage(text = "Username is required!!")
 
         CustomInput(
             textInput = password,
             onValueChange = { password = it },
             label = "Insert your password:",
-            placeholder = "Insira sua senha:",
+            placeholder = "Insert your password",
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
             themeViewModel = themeViewModel,
             isError = isErrorPassword || passwordsMatchError
         )
-        if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
+        if (isErrorPassword) ErrorMessage(text = "Senha is required!!")
 
         CustomInput(
             textInput = checkPassword,
             onValueChange = { checkPassword = it },
             label = "Confirm your password:",
-            placeholder = "Confirme sua senha:",
+            placeholder = "Confirm your password",
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
             themeViewModel = themeViewModel,
             isError = isErrorCheckPassword || passwordsMatchError
         )
-        if (isErrorCheckPassword) ErrorMessage(text = "Confirmação de senha é obrigatória!")
-        if (passwordsMatchError) ErrorMessage(text = "As senhas precisam ser iguais!")
+        if (isErrorCheckPassword) ErrorMessage(text = "Password confirmation is required!")
+        if (passwordsMatchError) ErrorMessage(text = "Passwords do not match!")
         val userRegister = UserRegister(name, email, username, password)
         CustomButton(
             onClick = {
@@ -174,7 +170,7 @@ fun RegisterScreen(
                             snackBarViewModel.showSuccessSnackbar()
                             scope.launch {
                                 snackBarHostState.showSnackbar(
-                                    message = "Registrado! Realize o login.",
+                                    message = "Registered! Please login.",
                                     duration = SnackbarDuration.Short
                                 )
                             }
@@ -197,7 +193,7 @@ fun RegisterScreen(
                     snackBarViewModel.showErrorSnackbar()
                     scope.launch {
                         snackBarHostState.showSnackbar(
-                            message = "Erro ao registrar!",
+                            message = "Fail to register!",
                             duration = SnackbarDuration.Short
                         )
                     }

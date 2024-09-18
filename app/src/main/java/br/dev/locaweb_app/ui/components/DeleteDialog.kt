@@ -19,9 +19,7 @@ fun DeleteDialog(
     onDismissRequest: () -> Unit,
     onConfirmRequest: () -> Unit,
     buttonColors: List<Color>? = null
-    ) {
-
-    var showDialog by remember { mutableStateOf(dialogState) }
+) {
 
     if (dialogState) {
         AlertDialog(

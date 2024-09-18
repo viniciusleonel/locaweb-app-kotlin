@@ -77,7 +77,7 @@ fun EmailListScreen(
                                 snackBarViewModel.showSuccessSnackbar()
                                 scope.launch {
                                     snackBarHostState.showSnackbar(
-                                        message = "Emails carregados com sucesso!",
+                                        message = "Emails loaded successfully!",
                                         duration = SnackbarDuration.Short
                                     )
                                 }
@@ -92,7 +92,6 @@ fun EmailListScreen(
                                         duration = SnackbarDuration.Short
                                     )
                                 }
-                                Log.i("Erro lista emails", errorMessage!!)
                                 isLoading = false
                             },
                             navController = navController
@@ -107,7 +106,7 @@ fun EmailListScreen(
                                 snackBarViewModel.showSuccessSnackbar()
                                 scope.launch {
                                     snackBarHostState.showSnackbar(
-                                        message = "Emails carregados com sucesso!",
+                                        message = "Emails loaded successfully!",
                                         duration = SnackbarDuration.Short
                                     )
                                 }
@@ -133,9 +132,7 @@ fun EmailListScreen(
                 isLoading = false
             }
         }
-        onDispose {
-            // Cleanup se necessário
-        }
+        onDispose {}
     }
 
     Column(
@@ -169,12 +166,7 @@ fun EmailListScreen(
                     emailsList = emailsList,
                     color = usersColor,
                     emailListType = emailListType,
-                    userViewModel = userViewModel,
-                    navController = navController,
-                    themeViewModel = themeViewModel,
-                    snackBarHostState = snackBarHostState,
-                    snackBarViewModel = snackBarViewModel,
-                    scope = scope
+                    navController = navController
                 )
             } ?: run {
                 Text("No emails found.")

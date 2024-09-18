@@ -59,15 +59,6 @@ fun NavGraph(
                 buttonColors = buttonColors
             )
         }
-//        composable(route = "profile") {
-//            ProfileScreen(
-//                navController = navController,
-//                snackBarHostState = snackBarHostState,
-//                snackBarViewModel = snackBarViewModel,
-//                scope = scope,
-//                userViewModel = userViewModel
-//            )
-//        }
         composable(route = "edit-profile") {
             EditProfileScreen(
                 navController = navController,

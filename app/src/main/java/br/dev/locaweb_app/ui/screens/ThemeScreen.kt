@@ -64,10 +64,8 @@ fun ThemeScreen(
 
     val user = userViewModel.userLoginResponse.value
     val userPreferencesId = user?.userPreferences?.id
-    var theme by remember { mutableStateOf(if (isDarkTheme) "Dark" else "Light") }
-    var colorScheme by remember { mutableStateOf(usersColor.toString()) }
-    var categories by remember { mutableStateOf("") }
-    var labels by remember { mutableStateOf("") }
+    val categories by remember { mutableStateOf("") }
+    val labels by remember { mutableStateOf("") }
     var userPreferencesResponse by remember { mutableStateOf(UserPreferencesResponse()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
@@ -91,7 +89,7 @@ fun ThemeScreen(
         modifier = modifier
             .padding(20.dp)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween, // Garante que o botão fique no final
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
             Text(
@@ -144,16 +142,25 @@ fun ThemeScreen(
                 .align(Alignment.CenterHorizontally),
             onClick = {
                 val userPreferences =
-                    userPreferencesId?.let { setUpPreferences(if (isDarkTheme) "Dark" else "Light", usersColor.toString(), categories, labels, it) }
+                    userPreferencesId?.let {
+                        setUpPreferences(
+                            if (isDarkTheme) "Dark" else "Light",
+                            usersColor.toString(),
+                            categories,
+                            labels,
+                            it
+                        )
+                    }
 
                 if (userPreferences?.theme != null || userPreferences?.colorScheme != null || userPreferences?.categories != null || userPreferences?.labels != null) {
-                    userPreferences.updatePreferences(userPreferencesId,
+                    userPreferences.updatePreferences(
+                        userPreferencesId,
                         onSuccess = { response ->
                             userPreferencesResponse = response
                             snackBarViewModel.showSuccessSnackbar()
                             scope.launch {
                                 snackBarHostState.showSnackbar(
-                                    message = "Preferências salvas!",
+                                    message = "Preferences saved!",
                                     duration = SnackbarDuration.Short
                                 )
                             }

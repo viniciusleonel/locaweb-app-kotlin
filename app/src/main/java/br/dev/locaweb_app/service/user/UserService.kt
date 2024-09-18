@@ -1,7 +1,6 @@
 package br.dev.locaweb_app.service.user
 
 import br.dev.locaweb_app.model.MessageResponse
-import br.dev.locaweb_app.model.user.UserDetails
 import br.dev.locaweb_app.model.user.UserLogin
 import br.dev.locaweb_app.model.user.UserLoginResponse
 import br.dev.locaweb_app.model.user.UserRegister
@@ -10,14 +9,12 @@ import br.dev.locaweb_app.model.user.UserUpdate
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface UserService {
 
-    // http://localhost:8080/api
     // http://localhost:8080/api/user
     // http://localhost:8080/api/user/login
 
@@ -25,10 +22,7 @@ interface UserService {
     fun login(@Body userLogin: UserLogin): Call<UserLoginResponse>
 
     @POST("user")
-    fun register(@Body userRegister: UserRegister) : Call<UserRegisterResponse>
-
-    @GET("user/{id}")
-    fun getUserById(@Path("id") id: Long): Call<UserDetails>
+    fun register(@Body userRegister: UserRegister): Call<UserRegisterResponse>
 
     @PUT("user/{id}")
     fun updateUserById(@Path("id") id: Long, @Body userUpdate: UserUpdate): Call<UserLoginResponse>

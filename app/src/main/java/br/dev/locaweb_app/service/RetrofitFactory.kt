@@ -20,11 +20,11 @@ class RetrofitFactory {
         return retrofitFactory.create(UserService::class.java)
     }
 
-    fun getPreferencesService() : UserPreferencesService {
+    fun getPreferencesService(): UserPreferencesService {
         return retrofitFactory.create(UserPreferencesService::class.java)
     }
 
-    fun getEmailService() : EmailService {
+    fun getEmailService(): EmailService {
         return retrofitFactory.create(EmailService::class.java)
     }
 

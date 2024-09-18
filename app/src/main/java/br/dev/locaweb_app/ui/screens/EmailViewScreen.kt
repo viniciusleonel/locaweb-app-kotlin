@@ -50,8 +50,6 @@ fun EmailViewScreen(
     val usersColor = themeViewModel.navBarColor.value
     val user = userViewModel.userLoginResponse.value
     val coroutineScope = rememberCoroutineScope()
-//    var search by remember { mutableStateOf("") }
-//    var searchError by remember { mutableStateOf(false) }
     var emailResponse by remember { mutableStateOf<EmailDetails?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -63,19 +61,20 @@ fun EmailViewScreen(
     DisposableEffect(Unit) {
         coroutineScope.launch {
             if (user != null) {
-                getEmailByIdAndUserId(emailId, user.id,
-                        onSuccess = { response ->
-                            emailResponse = response
-                            snackBarViewModel.showSuccessSnackbar()
-                            scope.launch {
-                                snackBarHostState.showSnackbar(
-                                    message = "Email carregado com sucesso!",
-                                    duration = SnackbarDuration.Short
-                                )
-                            }
-                            Log.i("Email", emailResponse.toString())
-                            isLoading = false
-                        },
+                getEmailByIdAndUserId(
+                    emailId, user.id,
+                    onSuccess = { response ->
+                        emailResponse = response
+                        snackBarViewModel.showSuccessSnackbar()
+                        scope.launch {
+                            snackBarHostState.showSnackbar(
+                                message = "Email loaded successfully!",
+                                duration = SnackbarDuration.Short
+                            )
+                        }
+                        Log.i("Email", emailResponse.toString())
+                        isLoading = false
+                    },
                     onFailure = { message ->
                         errorMessage = message
                         snackBarViewModel.showErrorSnackbar()
@@ -88,13 +87,11 @@ fun EmailViewScreen(
                         Log.i("Email", emailResponse.toString())
                         isLoading = false
                     },
-                        navController
-                    )
+                    navController
+                )
             }
         }
-        onDispose {
-            // Cleanup se necessário
-        }
+        onDispose {}
     }
 
     Column(
@@ -104,15 +101,14 @@ fun EmailViewScreen(
     ) {
         when {
             isLoading -> {
-                // Show a loading indicator
                 Text(text = "Loading...", color = Color.Gray)
             }
+
             errorMessage != null -> {
-                // Show an error message
                 Text(text = "Error: $errorMessage", color = Color.Red)
             }
+
             emailResponse != null -> {
-                // Display the email details
                 EmailDetailsView(emailDetails = emailResponse!!)
             }
         }
@@ -148,29 +144,11 @@ fun EmailDetailsView(emailDetails: EmailDetails) {
             color = Color.Gray,
             fontSize = 14.sp
         )
-
-
-
         Spacer(modifier = Modifier.height(8.dp))
-
         Text(
             text = emailDetails.body,
             fontSize = 16.sp
         )
         Spacer(modifier = Modifier.height(8.dp))
-
-//        if (emailDetails.wasRead) {
-//            Text(
-//                text = "Status: Read",
-//                color = Color.Green,
-//                fontSize = 14.sp
-//            )
-//        } else {
-//            Text(
-//                text = "Status: Unread",
-//                color = Color.Red,
-//                fontSize = 14.sp
-//            )
-//        }
     }
 }

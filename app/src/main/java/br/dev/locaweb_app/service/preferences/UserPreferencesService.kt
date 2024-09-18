@@ -10,13 +10,15 @@ import retrofit2.http.Path
 
 interface UserPreferencesService {
 
-    // http://localhost:8080/api
     // http://localhost:8080/api/preferences
 
     @PUT("preferences/{id}")
-    fun updatePreferences(@Path ("id") id: Long, @Body userPreferences: UserPreferences) : Call<UserPreferencesResponse>
+    fun updatePreferences(
+        @Path("id") id: Long,
+        @Body userPreferences: UserPreferences
+    ): Call<UserPreferencesResponse>
 
     @GET("preferences/user/{2id}")
-    fun loadUserPreferences(@Path ("id") id: Long) : Call<UserPreferencesResponse>
+    fun loadUserPreferences(@Path("id") id: Long): Call<UserPreferencesResponse>
 
 }

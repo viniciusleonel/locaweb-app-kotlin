@@ -1,7 +1,6 @@
 package br.dev.locaweb_app.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -33,7 +32,7 @@ fun CustomInput(
     onValueChange: (String) -> Unit,
     textStyle: TextStyle? = null,
     singleLine: Boolean = true,
-    maxLines: Int = Int. MAX_VALUE,
+    maxLines: Int = Int.MAX_VALUE,
     color: Color? = null,
     cornerShape: CornerBasedShape? = null,
     icon: ImageVector? = null,

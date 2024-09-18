@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,11 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.dev.locaweb_app.model.email.EmailData
 import br.dev.locaweb_app.model.email.EmailsList
-import br.dev.locaweb_app.model.user.UserViewModel
-import br.dev.locaweb_app.service.email.getEmailByIdAndUserId
-import br.dev.locaweb_app.ui.screens.EmailViewScreen
 import br.dev.locaweb_app.utils.formatDate
-import kotlinx.coroutines.CoroutineScope
 
 enum class EmailListType {
     INBOX,
@@ -41,12 +36,7 @@ fun EmailListDisplay(
     emailsList: EmailsList,
     color: Color,
     emailListType: EmailListType,
-    userViewModel: UserViewModel,
-    themeViewModel: ThemeViewModel,
-    navController: NavController,
-    snackBarHostState: SnackbarHostState,
-    snackBarViewModel: SnackBarViewModel,
-    scope: CoroutineScope,
+    navController: NavController
 ) {
     Spacer(modifier = Modifier.height(5.dp))
     Row(
@@ -94,12 +84,7 @@ fun EmailListDisplay(
                 email,
                 color,
                 emailListType,
-                userViewModel,
-                themeViewModel,
                 navController,
-                snackBarHostState,
-                snackBarViewModel,
-                scope
             )
         }
     }
@@ -110,12 +95,7 @@ fun EmailListItem(
     email: EmailData,
     color: Color,
     emailListType: EmailListType,
-    userViewModel: UserViewModel,
-    themeViewModel: ThemeViewModel,
     navController: NavController,
-    snackBarHostState: SnackbarHostState,
-    snackBarViewModel: SnackBarViewModel,
-    scope: CoroutineScope,
 ) {
 
 

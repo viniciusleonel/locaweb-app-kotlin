@@ -40,18 +40,21 @@ fun CustomSnackBar(
             icon = Icons.Outlined.CheckCircle
             iconColor = Color(0xFF4CAF50)
         }
+
         SnackBarStatus.ERROR -> {
             containerColor = Color(0xFFDD493E)
             contentColor = Color.White
             icon = Icons.Outlined.Warning
             iconColor = Color.White
         }
+
         SnackBarStatus.REGULAR -> {
             containerColor = Color(0xFF413F3F)
             contentColor = Color.White
             icon = Icons.Outlined.Info
             iconColor = Color.White
         }
+
         SnackBarStatus.NONE -> {
             return
         }
@@ -61,7 +64,7 @@ fun CustomSnackBar(
         modifier = Modifier.padding(15.dp),
         hostState = snackBarHostState,
         snackbar = {
-            Snackbar (
+            Snackbar(
                 containerColor = containerColor,
                 contentColor = contentColor,
                 shape = RoundedCornerShape(15.dp),
@@ -76,12 +79,12 @@ fun CustomSnackBar(
                         )
                     }
                 }
-            ){
-                Row (
+            ) {
+                Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
-                ){
+                ) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
@@ -92,7 +95,7 @@ fun CustomSnackBar(
                     Text(
                         text = snackBarHostState.currentSnackbarData?.visuals?.message.toString(),
                         modifier = Modifier.padding(top = 2.dp)
-                        )
+                    )
                 }
             }
         }

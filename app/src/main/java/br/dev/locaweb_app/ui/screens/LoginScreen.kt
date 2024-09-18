@@ -73,7 +73,7 @@ fun LoginScreen(
                 username = letter
             },
             label = "Insert your username:",
-            placeholder = "Insira seu username:",
+            placeholder = "Insert your username",
             icon = Icons.Filled.Person,
             themeViewModel = themeViewModel,
             isError = isErrorUsername
@@ -85,14 +85,14 @@ fun LoginScreen(
                 password = letter
             },
             label = "Insert your password:",
-            placeholder = "Insira sua senha:",
+            placeholder = "Insert your password",
             icon = Icons.Filled.Lock,
             keyboard = KeyboardType.Password,
             isPassword = true,
             themeViewModel = themeViewModel,
             isError = isErrorPassword
         )
-        if (isErrorPassword) ErrorMessage(text = "Senha é obrigatório!")
+        if (isErrorPassword) ErrorMessage(text = "Password is required!")
         Spacer(modifier = Modifier.height(10.dp))
         CustomButton(
             onClick = {
@@ -108,7 +108,7 @@ fun LoginScreen(
                                 snackBarViewModel.showSuccessSnackbar()
                                 scope.launch {
                                     snackBarHostState.showSnackbar(
-                                        message = "Login realizado com sucesso!",
+                                        message = "Login successfully!",
                                         duration = SnackbarDuration.Short
                                     )
                                 }

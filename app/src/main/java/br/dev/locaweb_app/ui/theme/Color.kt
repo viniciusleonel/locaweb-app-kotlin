@@ -20,9 +20,6 @@ val DarkRed = Color(0xFF333333)
 val ButtonColors = listOf(OceanBlue, Color.Blue, OceanBlue)
 val ButtonColorsWarning = listOf(DarkRed, Red, DarkRed)
 
-//val NavColor = Blue
-
-// Função para escurecer a cor
 fun darkenColor(color: Color, factor: Float): Color {
     val hsl = FloatArray(3)
     color.toHsl(hsl)
