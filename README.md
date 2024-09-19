@@ -37,7 +37,7 @@ O Locaweb App é um aplicativo Android desenvolvido para gerenciar e enviar e-ma
 
 3. Certifique-se de que o emulador ou dispositivo Android esteja configurado.
 
-4. **Importante**: Para o aplicativo funcionar, é necessário que a API esteja em execução. Para configurar a API, siga os passos descritos em [locaweb-app-kotlin](https://github.com/viniciusleonel/locaweb-app-kotlin).
+4. **Importante**: Para o aplicativo funcionar, é necessário que a API esteja em execução. Para configurar a API, siga os passos descritos em [locaweb-api-kotlin](https://github.com/viniciusleonel/locaweb-fiap).
 
 5. Execute o aplicativo a partir do Android Studio.
 
