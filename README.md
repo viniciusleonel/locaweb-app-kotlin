@@ -2,7 +2,7 @@
 
 ## Descrição
 
-O Locaweb App é um aplicativo Android desenvolvido para gerenciar e enviar e-mails de forma intuitiva e eficiente. Com uma interface moderna e responsiva, o aplicativo permite que os usuários se registrem, façam login, enviem e recebam e-mails, além de gerenciar suas configurações de perfil.
+O Locaweb App é um aplicativo Android desenvolvido com Kotlin e Jetpack Compose para gerenciar e enviar e-mails de forma intuitiva e eficiente. Com uma interface moderna e responsiva, o aplicativo permite que os usuários se registrem, façam login, enviem e recebam e-mails, além de gerenciar suas configurações de perfil e regras de controle de spam.
 
 ## Funcionalidades
 
@@ -45,4 +45,4 @@ O Locaweb App é um aplicativo Android desenvolvido para gerenciar e enviar e-ma
 
 *Adicione aqui os prints da tela do aplicativo:*
 
-![Print 1](./public\images\screens.jpg)
+![Telas do APP](./public\images\screens.jpg)
