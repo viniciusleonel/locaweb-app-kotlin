@@ -45,4 +45,4 @@ O Locaweb App é um aplicativo Android desenvolvido com Kotlin e Jetpack Compose
 
 *Adicione aqui os prints da tela do aplicativo:*
 
-![Telas do APP](./public\images\screens.jpg)
+![Telas do APP](./public/images/screens.jpg)
